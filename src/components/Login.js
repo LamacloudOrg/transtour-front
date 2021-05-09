@@ -29,18 +29,20 @@ class Login extends Component {
   }  
 
   startSession = async() =>{
-    await axios.get(getUserUrlMock, {params: { userName: this.state.form.userName , passWord: md5(this.state.form.passWord)}})
+   // await axios.get(getUserUrlMock, {params: { userName: this.state.form.userName , passWord: md5(this.state.form.passWord)}})
+   await axios.post(getUserUrlMock)
     .then(response=>{
       return response.data;
     })
     .then(response=>{
       if (response.length>0){
-        var result = response.data;
-        cookie.set('userName', result.data.name, {path: "/"})
-        alert('Inicio correcto',  result)
+        console.log(response);
+   //     var result = response.data;
+  //      cookie.set('userName', result.data.name, {path: "/"})
+        console.log('Inicio correcto',  response)
         window.location.href="./home";
       }
-      return response.data;
+ //     return response.data;
     })
     .catch(error=>{
       console.log(error);
