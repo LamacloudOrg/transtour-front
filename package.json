@@ -20,7 +20,8 @@
     "react-scripts": "^3.4.4",
     "react-to-pdf": "0.0.13",
     "universal-cookie": "^4.0.4",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
