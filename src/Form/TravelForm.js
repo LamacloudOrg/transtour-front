@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/Login.css';
 
 class TravelForm extends Component {
 
@@ -43,36 +45,53 @@ render() {
         }}
       >
         <Form>
+        <div className="containerPrincipal">
+        <div className="containerSecundario">
+        <div className="form-group">
+          <label>First Name: </label>
+            <br/>
           <input
             label="First Name"
             name="firstName"
             type="text"
             placeholder="Jane"
+            className="form-control"
           />
-
+          <label>Last Name: </label>
+            <br/>
           <input
             label="Last Name"
             name="lastName"
             type="text"
             placeholder="Doe"
+            className="form-control"
           />
-
+          <label>Email: </label>
+            <br/>
           <input
             label="Email Address"
             name="email"
             type="email"
             placeholder="jane@formik.com"
+            className="form-control"
           />
 
-          <select label="Job Type" name="jobType">
+          <label>Chofer: </label>
+            <br/>
+          <select label="Job Type" name="jobType" className="form-control">
             <option value="">Select a job type</option>
             <option value="designer">Designer</option>
             <option value="development">Developer</option>
             <option value="product">Product Manager</option>
-            <option value="other">Other</option>
+            <option value="other">Other</option>            
           </select>
 
-          <button type="submit">Submit</button>
+          <br/>
+          <button type="submit" className="btn btn-primary">create  </button>
+ 
+          </div>
+          </div>
+          </div>
         </Form>
       </Formik>
       </>

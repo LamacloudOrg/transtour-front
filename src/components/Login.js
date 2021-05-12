@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import  { Redirect,RouteComponentProps, withRouter  } from 'react-router-dom';
 import '../css/Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import md5 from 'md5';
-import Cookies from 'universal-cookie';
+//import Cookies from 'universal-cookie';
 
 const getUserUrlMock = "http://localhost:8088/v1/user/login";
-const cookie = new Cookies;
+//const cookie = new Cookies;
 
 class Login extends Component {
 
@@ -29,6 +30,8 @@ class Login extends Component {
   }  
 
   startSession = async() =>{
+    const { history } = this.props;
+
    // await axios.get(getUserUrlMock, {params: { userName: this.state.form.userName , passWord: md5(this.state.form.passWord)}})
    await axios.post(getUserUrlMock)
     .then(response=>{
@@ -36,13 +39,10 @@ class Login extends Component {
     })
     .then(response=>{
       if (response.length>0){
-        console.log(response);
-   //     var result = response.data;
-  //      cookie.set('userName', result.data.name, {path: "/"})
         console.log('Inicio correcto',  response)
-        window.location.href="./home";
+        history.push("/home")
+
       }
- //     return response.data;
     })
     .catch(error=>{
       console.log(error);
@@ -78,4 +78,4 @@ class Login extends Component {
   } 
 }
 
-export default Login;
+export default withRouter(Login);
