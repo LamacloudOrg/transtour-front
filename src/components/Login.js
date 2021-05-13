@@ -3,9 +3,7 @@ import  {withRouter  } from 'react-router-dom';
 import AuthenticationService from '../service/AuthenticationService'
 import '../css/Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import md5 from 'md5';
-
+import bcrypt from 'bcryptjs'
 
 class Login extends Component {
 
@@ -14,29 +12,40 @@ class Login extends Component {
       this.state = {
         form: {
           userName: '',
-          passWord: ''
+          password: ''
         },
 
     }
   }
 
   handleChange = async e => {
-
+//    const rounds = 10
+  //  const salt = bcrypt.genSaltSync(10);
+    let value = e.target.value
+  //  if (e.target.name==="password"){
+    //  value = bcrypt.hashSync(e.target.name, salt);
+ //   }
       this.setState({
         form:{
           ...this.state.form,
-          [e.target.name]: e.target.value
+          [e.target.name]: value
         }
       });
-      console.log(this.state.form);
-
-  }  
+  }
+  
+   init =()=>{
+    this.setState({
+      form:{
+        userName: '',
+        passWord: ''
+      }})
+  }
 
   startSession = async() =>{
     const { history } = this.props;
     try{
-     const token = await AuthenticationService.autetincate(this.state.form.userName, md5(this.state.form.passWord))
-     localStorage.setItem("token",token)
+     const token = await AuthenticationService.autetincate(this.state.form)
+     localStorage.setItem("token",token);
      history.push("/home")
     }catch(Error){
       console.log(Error)
@@ -44,7 +53,9 @@ class Login extends Component {
   }
 
   render() {
+
     return (
+
       <div className="containerPrincipal">
         <div className="containerSecundario">
                 
@@ -62,7 +73,7 @@ class Login extends Component {
             <label>Password: </label>
             <br/>
             <input type="password" 
-               name="passWord" 
+               name="password" 
                onChange={this.handleChange} 
                className="form-control"
             />

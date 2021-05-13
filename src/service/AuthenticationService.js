@@ -2,16 +2,15 @@ import Axios from './Axios';
 
 const service =new class Authetication {
     constructor() {
-        this.endpoint = "/v1/user/login";
+        this.endpoint = "/v1/user";
 
     }
 
-     autetincate = async (userName,password)=>{
+     autetincate = async (form)=>{
        try {
-
-        console.log("autentication con parametros")
-            
-        const response = await Axios.post(this.endpoint,{username:userName,password:password})
+        let data = JSON.stringify(form)
+        console.log("autentication con parametros",data)    
+        const response = await Axios.post(this.endpoint+"/oauth/token",data)
    //     console.log(response)
         const result =  await response.data;
         return result   
@@ -20,7 +19,7 @@ const service =new class Authetication {
        }  
     }
 
-    autetincate = async ()=>{
+    autetincate_ = async ()=>{
         try {
 
          console.log("autentication sin parametros")
