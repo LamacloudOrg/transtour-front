@@ -2,8 +2,7 @@ import Axios from './Axios';
 
 const service =new class TravelService {
     constructor() {
-        this.endpoint = "/v1/travel";
-
+        this.endpoint = "service-travel/v1/travel";
     }
 
      create = async (form)=>{
@@ -11,7 +10,7 @@ const service =new class TravelService {
 
         console.log("creacion de un viaje",form)
             
-        const response = await Axios.post(this.endpoint,form)
+        const response = await Axios.post(this.endpoint+"/create",form)
         const result =  await response.data;
         return result   
        } catch (error) {

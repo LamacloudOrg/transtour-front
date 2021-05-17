@@ -18,14 +18,14 @@ render() {
 
   const schema =Yup.object({
 
-    client:Yup.string().required("Requerido"),
-    driver: Yup.string()
+    pasajero:Yup.string().required("Requerido"),
+    chofer: Yup.string()
       .required('Requerido'),
-    date: Yup.date()
+    fecha: Yup.date()
     .required('Requerido'),
-    hour: Yup.string()
+    hora: Yup.string()
     .required('Requerido'),
-    address: Yup.string()
+    direccion: Yup.string()
     .required('Requerido'),
 
   });
@@ -34,7 +34,7 @@ render() {
       <>
       <Formik
 
-      initialValues={{ client: '', driver:'',date:'',hour:'',address:''}}
+      initialValues={{ pasajero: '', chofer:'',fecha:'',hora:'',direccion:''}}
       validationSchema={schema}
 
       onSubmit={ async (values, actions) => {
@@ -70,13 +70,13 @@ render() {
 
             onBlur={props.handleBlur}
 
-            value={props.values.client}
+            value={props.values.pasajero}
             className="form-control"
 
-            name="client"
+            name="pasajero"
 
           />
-         {props.errors.client && <div  id="feedback">{props.errors.client}</div>}
+         {props.errors.pasajero && <div  id="feedback">{props.errors.pasajero}</div>}
 
           <br/>
           <label>Chofer: </label>
@@ -86,10 +86,10 @@ render() {
 
               onBlur={props.handleBlur}
 
-              value={props.values.driver}
+              value={props.values.chofer}
               className="form-control"
 
-              name="driver"
+              name="chofer"
 
             >
               <option value="">chofer</option>
@@ -99,7 +99,7 @@ render() {
               <option value="4">Manuel</option>   
             </select>
 
-            {props.errors.driver && <div  id="feedback">{props.errors.driver}</div>}
+            {props.errors.chofer && <div  id="feedback">{props.errors.chofer}</div>}
 
           <br/>
 
@@ -108,29 +108,29 @@ render() {
           <input
             onChange={props.handleChange}
             onBlur={props.handleBlur}
-            value={props.values.date}
-            label="date"
-            name="date"
+            value={props.values.fecha}
+            label="fecha"
+            name="fecha"
             type="date"
             className="form-control"
           />
 
 
-          {props.errors.date && <div  id="feedback">{props.errors.date}</div>}
+          {props.errors.fecha && <div  id="feedback">{props.errors.fecha}</div>}
 
           <br/>
           <label>Hora: </label>
           <input
             onChange={props.handleChange}
             onBlur={props.handleBlur}
-            value={props.values.hour}
-            label="hour"
-            name="hour"
+            value={props.values.hora}
+            label="hora"
+            name="hora"
             type="time"
             className="form-control"
           />
 
-        {props.errors.date && <div  id="feedback">{props.errors.date}</div>}
+        {props.errors.hora && <div  id="feedback">{props.errors.hora}</div>}
         <br/>
 
           <label>Destino: </label>
@@ -138,15 +138,15 @@ render() {
           <input
             onChange={props.handleChange}
             onBlur={props.handleBlur}
-            value={props.values.address}
-            label="address"
-            name="address"
+            value={props.values.direccion}
+            label="direccion"
+            name="direccion"
             type="text"
             placeholder="calle 4ª891"
             className="form-control"
           />
 
-        {props.errors.date && <div  id="feedback">{props.errors.date}</div>}
+        {props.errors.direccion && <div  id="feedback">{props.errors.direccion}</div>}
         <br/>
 
       <button type="submit" className="btn btn-primary">Submit</button>
