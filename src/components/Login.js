@@ -1,56 +1,66 @@
 import React, { Component } from 'react';
+import  {withRouter  } from 'react-router-dom';
+import AuthenticationService from '../service/AuthenticationService'
 import '../css/Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
-import md5 from 'md5';
-import Cookies from 'universal-cookie';
-
-const getUserUrlMock = "http://localhost:8088/v1/user/login";
-const cookie = new Cookies;
+import bcrypt from 'bcryptjs'
 
 class Login extends Component {
 
-    state = {
-      form: {
-        userName: '',
-        passWord: ''
-      }
+  constructor(){
+      super()
+      this.state = {
+        form: {
+          userName: '',
+          password: ''
+        },
+
     }
+  }
 
   handleChange = async e => {
-    await this.setState({
+//    const rounds = 10
+  //  const salt = bcrypt.genSaltSync(10);
+    let value = e.target.value
+  //  if (e.target.name==="password"){
+    //  value = bcrypt.hashSync(e.target.name, salt);
+ //   }
+      this.setState({
+        form:{
+          ...this.state.form,
+          [e.target.name]: value
+        }
+      });
+  }
+  
+   init =()=>{
+    this.setState({
       form:{
-        ...this.state.form,
-        [e.target.name]: e.target.value
-      }
-    });
-    console.log(this.state.form);
-
-  }  
+        userName: '',
+        passWord: ''
+      }})
+  }
 
   startSession = async() =>{
-    await axios.get(getUserUrlMock, {params: { userName: this.state.form.userName , passWord: md5(this.state.form.passWord)}})
-    .then(response=>{
-      return response.data;
-    })
-    .then(response=>{
-      if (response.length>0){
-        var result = response.data;
-        cookie.set('userName', result.data.name, {path: "/"})
-        alert('Inicio correcto',  result)
-        window.location.href="./home";
-      }
-      return response.data;
-    })
-    .catch(error=>{
-      console.log(error);
-    })
+    const { history } = this.props;
+    try{
+     const token = await AuthenticationService.autetincate(this.state.form)
+     localStorage.setItem("token",token);
+     history.push("/home")
+    }catch(Error){
+      console.log(Error)
+    }
   }
 
   render() {
+
     return (
+
       <div className="containerPrincipal">
         <div className="containerSecundario">
+                
+        {this.state.error && <div className="aler-danger">{this.state.error}</div>}
+
           <div className="form-group">
             <label>User: </label>
             <br/>
@@ -63,7 +73,7 @@ class Login extends Component {
             <label>Password: </label>
             <br/>
             <input type="password" 
-               name="passWord" 
+               name="password" 
                onChange={this.handleChange} 
                className="form-control"
             />
@@ -76,4 +86,4 @@ class Login extends Component {
   } 
 }
 
-export default Login;
+export default withRouter(Login);

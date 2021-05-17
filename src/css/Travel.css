@@ -1,4 +1,4 @@
-.containerPrincipal {
+.travel-main {
     position:0 auto!;
     transform: translate(-50, -50);
     border: 1px whitesmoke blue;
@@ -6,10 +6,10 @@
     background-color: white;
 }
 
-.containerSecundario{
+.travel-secondary{
     position: relative;
-    margin-left: 20em;
-    margin-right: 20em;
+    margin-left: 0em;
+    margin-right: 10em;
 }
 
 .form-group input select{
