@@ -3,7 +3,6 @@ import  {withRouter  } from 'react-router-dom';
 import AuthenticationService from '../service/AuthenticationService'
 import '../css/Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import bcrypt from 'bcryptjs'
 
 class Login extends Component {
 
