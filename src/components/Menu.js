@@ -25,7 +25,7 @@ class Menu extends Component {
             <Link to="/home"><a class="nav-link" >create</a></Link>
             </li>
             <li class="nav-item">
-            <Link to="/list"><a class="nav-link" >list</a></Link>
+            <Link to="/travels"><a class="nav-link" >travels</a></Link>
             </li>
             <li class="nav-item">
             <Link to="/search"><a class="nav-link" >search</a></Link>
