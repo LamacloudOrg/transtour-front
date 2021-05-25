@@ -3,7 +3,6 @@ import Axios from './Axios';
 const service =new class Authetication {
     constructor() {
         this.endpoint = "v1/user";
-
     }
 
      autetincate = async (form)=>{
