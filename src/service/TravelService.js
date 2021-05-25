@@ -2,8 +2,8 @@ import Axios from './Axios';
 
 const service =new class TravelService {
     constructor() {
-       // this.endpoint = "service-travel/v1/travel";
-       this.endpoint = "v1/travel";
+        this.endpoint = "service-travel/v1/travel";
+       // this.endpoint = "v1/travel";
     }
 
      create = async (form)=>{
@@ -38,7 +38,7 @@ const service =new class TravelService {
 
         const page_ = page || 0;
 
-        const params ={ params: { page: page_,size:4,sort:"fecha",direction:"DESC"} }
+        const params ={ params: { page: page_,size:4} }
 
         try {
  

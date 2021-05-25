@@ -7,7 +7,6 @@ class  Travels extends Component {
 
     constructor(props) {
 		super(props);
-
 	}
 
    componentDidMount = () => {
@@ -15,14 +14,13 @@ class  Travels extends Component {
    }
 
     render() {
-        const origin ="calle 4"
         return(
           <>
             <table class="table table-striped">
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col">id</th>
+                <th scope="col">orderNumber</th>
                 <th scope="col">Passenger</th>
                 <th scope="col">Chofer</th>
                 <th scope="col">Origin</th>
@@ -38,13 +36,13 @@ class  Travels extends Component {
                 (
                     <tr>
                     <th scope="row"></th>
-                    <td>{element.id}</td>
-                    <td>{element.pasajero}</td>
-                    <td>{element.chofer}</td>
-                    <td> {origin}</td>
-                    <td>{element.direccion}</td>
-                    <td>{element.fecha}</td>
-                    <td>{element.hora}</td>
+                    <td>{element.orderNumber}</td>
+                    <td>{element.passenger}</td>
+                    <td>{element.carDriver}</td>
+                    <td>{element.originAddress}</td>
+                    <td>{element.destinyAddress}</td>
+                    <td>{element.dateCreated}</td>
+                    <td>{element.time}</td>
                     </tr>
                 )    
             )}
