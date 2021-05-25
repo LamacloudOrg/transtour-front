@@ -7,49 +7,50 @@ class  Travels extends Component {
 
     constructor(props) {
 		super(props);
+
 	}
 
-   componentDidMount = (dispatch) => {
-        this.props.loadTravels();	
-    }
-
-
+   componentDidMount = () => {
+       this.props.loadTravels();
+   }
 
     render() {
-        console.log(this.props);
+        const origin ="calle 4"
         return(
           <>
-            
             <table class="table table-striped">
             <thead>
                 <tr>
+                <th scope="col"></th>
                 <th scope="col">id</th>
                 <th scope="col">Passenger</th>
                 <th scope="col">Chofer</th>
                 <th scope="col">Origin</th>
                 <th scope="col">Destiny</th>
-                <th scope="col">Car</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
                 </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">
-                {this.props.state.travels.map(element =>
+            
+              
+                { this.props.travels && this.props.travels.map(element =>
                 (
-                    <>
+                    <tr>
+                    <th scope="row"></th>
+                    <td>{element.id}</td>
                     <td>{element.pasajero}</td>
                     <td>{element.chofer}</td>
-                    <td>{element.conductor}</td>
+                    <td> {origin}</td>
+                    <td>{element.direccion}</td>
+                    <td>{element.fecha}</td>
                     <td>{element.hora}</td>
-                    </>
+                    </tr>
                 )    
             )}
-            </th>
-            </tr>
             </tbody>
 
             </table>
-            
           </>
 
 )};
@@ -59,9 +60,11 @@ class  Travels extends Component {
 
 const mapStateToProps = (state) => {
 
-    console.log("state redux",state)
+    const { travels,isLoading} = state.travelReducer
+    console.log("travels",travels)
 	return {
-		travels: state.travels || []
+		travels: travels.content || [],
+        loading: isLoading
 	};
 }
 

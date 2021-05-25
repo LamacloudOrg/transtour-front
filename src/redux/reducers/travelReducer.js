@@ -5,13 +5,12 @@ var initialState = {
     isLoading:true
 }
 
-const todoReducer = (state = initialState, action) => {
+const travelReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case actionTypes.LOAD_TRAVELS: {
             return { ...state, 
-                tasks: action.payload,
-                isLoading:false
+                travels: action.payload
             };
         }
 
@@ -21,4 +20,4 @@ const todoReducer = (state = initialState, action) => {
     }
 }
 
-export default todoReducer;
+export default travelReducer;

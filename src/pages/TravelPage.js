@@ -3,7 +3,7 @@ import Menu from '../components/Menu'
 import Travels from '../components/Travels'
 
 
-class Travels extends Component {
+class TravelPage extends Component {
     render(){
 
         const { history } = this.props;
@@ -26,4 +26,4 @@ class Travels extends Component {
     }
 }
 
-export default Home;
+export default TravelPage;

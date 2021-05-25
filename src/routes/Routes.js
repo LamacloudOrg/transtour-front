@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Login from '../components/Login'
-import  Travels  from '../components/Travels';
+import  Travels  from '../pages/TravelPage';
 import Home from '../pages/Home'
 
 function Routes() {

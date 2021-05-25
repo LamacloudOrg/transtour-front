@@ -5,7 +5,7 @@ import Routes from './routes/Routes'
 class App extends Component {
 
 	render() {
-
+		console.log(process.env)
 		return (
 			<Routes/>
         )
