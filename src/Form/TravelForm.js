@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Formik  } from 'formik';
 import * as Yup from 'yup';
-import TravelService from '../service/TravelService'
+import  {withRouter  } from 'react-router-dom';
+import { connect } from "react-redux";
+import { generateNumber,newTravel } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.css';
 
@@ -12,9 +14,17 @@ class TravelForm extends Component {
     this.state = {
       error:''
    }
-}
+  }
+
+  componentDidMount = () => {
+    this.props.generateNumber();
+  } 
 
 render() {
+
+  const { newNumber}= this.props
+
+  console.log("show order Number",newNumber)
 
   const schema =Yup.object({
 
@@ -43,7 +53,7 @@ render() {
       <>
       <Formik
 
-      initialValues={{ orderNumber: '000001', dateCreated:'', car:'', carDriver:'', time:'',company:'', 
+      initialValues={{ orderNumber: newNumber, dateCreated:'', car:'', carDriver:'', time:'',company:'', 
       bc:'', passenger:'', reserveNumber:'', originAddress:'', destinyAddress:'', observation:'', amount:'',
       whitingTime:'', toll:'', parkingAmount:'', taxForReturn:'', totalAmount:''}}
       validationSchema={schema}
@@ -52,8 +62,12 @@ render() {
           console.log(values);
 
           try {
-            const response= await TravelService.create(values)
-            console.log("el viaje fue creado",response);
+         //   const response= await TravelService.create(values)
+            this.props.create(values)
+            console.log("el viaje fue creado")//,response);
+            const { history } = this.props;
+            history.push("/travels");
+
           } catch (error) {
             console.log("No se pudo crear el viaje")
             this.setState({
@@ -209,4 +223,21 @@ render() {
   } 
 }
 
-export default TravelForm;
+
+const mapStateToProps = (state) => {
+
+  const { orderNumber} = state.travelReducer
+  console.log("new order number",orderNumber)
+  return {
+    newNumber:orderNumber,
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+return {
+  generateNumber: () => dispatch(generateNumber()),
+  create:(travel) => dispatch(newTravel(travel))
+};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TravelForm))

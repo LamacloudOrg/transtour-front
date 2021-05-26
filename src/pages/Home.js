@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TravelForm from '../components/Travel'
+import TravelForm from '../Form/TravelForm'
 import Menu from '../components/Menu'
 
 class Home extends Component {

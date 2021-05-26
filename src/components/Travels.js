@@ -1,4 +1,4 @@
-import React, { Component, useEffect} from 'react';
+import React, { Component} from 'react';
 import { connect } from "react-redux";
 import { travelAll,aprove } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';

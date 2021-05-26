@@ -44,8 +44,8 @@ const service =new class TravelService {
 
     getOrderNumber = async ()=>{
         try {
-            console.log("desprobacion del viaje")
-            const response = await Axios.get(this.endpoint+"/orderNumber")
+            console.log("getOrderNumber")
+            const response = await Axios.get(this.endpoint+"/orederNumber")
             const result =  await response.data;
             return result   
         }catch (error) {

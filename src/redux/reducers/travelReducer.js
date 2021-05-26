@@ -1,17 +1,25 @@
 import * as actionTypes from '../actions/actionTypes';
+import {parserNumber}  from '../../helper/OrderNumberHelper'
 
 var initialState = {
     travels: [],
+    newCreated:false,
+    orderNumber:"0000",
     isLoading:true
 }
 
 const travelReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case actionTypes.LOAD_TRAVELS: {
+
+        case actionTypes.TRAVEL_ORDER_NUMBER: {
             return { ...state, 
-                travels: action.payload
+                orderNumber: parserNumber(action.payload)
             };
+        }
+
+        case actionTypes.TRAVEL_CREATION: {
+            return state;
         }
 
         case actionTypes.TRAVEL_APROVED: {
@@ -26,6 +34,13 @@ const travelReducer = (state = initialState, action) => {
                 travels: travels
             };
         }
+
+        case actionTypes.LOAD_TRAVELS: {
+            return { ...state, 
+                travels: action.payload
+            };
+        }
+
 
         default:
             return state;
