@@ -1,1 +1,2 @@
-export const LOAD_TRAVELS = "LOAD_TRAVELS";
+export const LOAD_TRAVELS =  "LOAD_TRAVELS";
+export const TRAVEL_APROVED = "TRAVEL_APROVE";

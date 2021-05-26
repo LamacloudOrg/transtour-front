@@ -19,6 +19,39 @@ const service =new class TravelService {
        }  
     }
 
+    aprove = async (travel)=>{
+        try {
+ 
+         console.log("aprbacion del viaje",travel)
+         const response = await Axios.post(this.endpoint+"/aprove",travel)
+         const result =  await response.data;
+         return result   
+        } catch (error) {
+            throw new Error(error)
+        }  
+    }
+
+    reject = async (travel)=>{
+        try {
+            console.log("desprobacion del viaje",travel)
+            const response = await Axios.post(this.endpoint+"/reject",travel)
+            const result =  await response.data;
+            return result   
+        }catch (error) {
+            throw new Error(error)
+        }  
+    }
+
+    getOrderNumber = async ()=>{
+        try {
+            console.log("desprobacion del viaje")
+            const response = await Axios.get(this.endpoint+"/orderNumber")
+            const result =  await response.data;
+            return result   
+        }catch (error) {
+            throw new Error(error)
+        }  
+    }
 
     findById = async (id)=>{
         try {
