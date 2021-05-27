@@ -74,6 +74,8 @@ class  Travels extends Component {
 
 const mapStateToProps = (state) => {
 
+    console.log (state);
+
     const { travels,isLoading} = state.travelReducer
     console.log("travels",travels)
 	return {

@@ -30,6 +30,10 @@ class Menu extends Component {
             <li class="nav-item">
             <Link to="/search"><a class="nav-link" >search</a></Link>
             </li>
+       
+            <li class="nav-item">
+            <Link to="/vouchers"><a class="nav-link" >vouchers</a></Link>
+            </li>
 
             <li class="nav-item">
             <Link to="/"><a class="nav-link" onClick={()=>handleLogout()}>logout</a></Link>
