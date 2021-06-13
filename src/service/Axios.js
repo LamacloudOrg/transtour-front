@@ -1,12 +1,15 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'http://192.168.0.114:8080/api/',
+    baseURL: 'https://209.126.85.7/api',
     timeout: 5000,
     headers: {
     'accept': 'application/json;q=0.9,text/plain',
     'Content-Type': 'application/json',
-//   'Access-Control-Allow-Origin':'*'
+    //xsrfCookieName: 'XSRF-TOKEN', // default
+    // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
+    //xsrfHeaderName: 'X-XSRF-TOKEN', // default
+    //'Allow-Origin':'http://localhost'
     }
   });
 
