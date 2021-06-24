@@ -31,7 +31,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "HTTPS=true&&PORT=3000 react-scripts start",
+    "start": "HTTPS=true&&PORT=3000  SSL_CRT_FILE=.crt SSL_KEY_FILE=.crt.key react-scripts start",
     "start:local": "env-cmd LOCAL && npm run start",
     "build": "react-scripts build",
     "test": "react-scripts test",
