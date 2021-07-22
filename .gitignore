@@ -20,6 +20,8 @@
 .env.test.local
 .env.production.local
 .env.dev
+.crt
+.crt.key
 
 npm-debug.log*
 yarn-debug.log*
