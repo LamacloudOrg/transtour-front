@@ -3,7 +3,7 @@ import { Formik  } from 'formik';
 import * as Yup from 'yup';
 import  {withRouter  } from 'react-router-dom';
 import { connect } from "react-redux";
-import { generateNumber,newTravel } from "../redux/actions";
+import { generateNumber, newTravel } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.css';
 
@@ -119,7 +119,8 @@ render() {
               <option value="1">Juan</option>
               <option value="2">Kike</option>
               <option value="3">Pablo</option>
-              <option value="4">Manuel</option>   
+              <option value="4">Manuel</option>
+              <option value="5">Charly</option>
             </select>
             {props.errors.carDriver && <div class="p-a-1 bg-warning" id="feedback">{props.errors.carDriver}</div>}
           <br />
