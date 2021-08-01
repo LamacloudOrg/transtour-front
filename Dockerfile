@@ -5,7 +5,8 @@ COPY package*.json /app/
 RUN npm install
 COPY ./ /app/
 #RUN CI=true npm test
-RUN  HTTPS=true npm run build --ssl-cert ".crt" --ssl-key ".crt.key"
+RUN  npm run build
+# HTTPS=true  && --ssl-cert ".crt" --ssl-key ".crt.key"
 #serve -s build --listen 8580 --ssl-cert ".crt" --ssl-key ".crt.key"
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
