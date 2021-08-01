@@ -1,8 +1,22 @@
 import axios from 'axios'
+import https from 'https'
+import fs from 'fs'
+
+const agent = new https.Agent({ 
+    //key: fs.readFileSync('private.key'),
+    //cert: fs.readFileSync('cert.crt'),    
+    // This is necessary only if using the client certificate authentication.
+    requestCert: true,
+    rejectUnauthorized: true,
+  
+    // This is necessary only if the client uses the self-signed certificate.
+    //ca: [fs.readFileSync('client-cert.pem')]
+  });
 
 const instance = axios.create({
     baseURL: 'https://209.126.85.7:8080/api',
     timeout: 5000,
+    httpsAgent:agent,
     headers: {
     'accept': 'application/json;q=0.9,text/plain',
     'Content-Type': 'application/json',
