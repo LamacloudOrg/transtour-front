@@ -1,14 +1,14 @@
-import axios from 'axios'
-import https from 'https'
-import fs from 'fs'
+import axios from 'axios';
+import https from 'https';
+import crt from '../.certification'
 
 const agent = new https.Agent({ 
-    //key: fs.readFileSync('private.key'),
-    //cert: fs.readFileSync('cert.crt'),    
+    //key: 'transtoru-api',
+    //cert: crt,    
     // This is necessary only if using the client certificate authentication.
     requestCert: true,
     rejectUnauthorized: true,
-  
+    ca:crt
     // This is necessary only if the client uses the self-signed certificate.
     //ca: [fs.readFileSync('client-cert.pem')]
   });
