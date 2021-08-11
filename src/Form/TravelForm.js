@@ -62,6 +62,7 @@ render() {
           console.log(values);
 
           try {
+            values.carDriver = parseInt(values.carDriver)
          //   const response= await TravelService.create(values)
             this.props.create(values)
             console.log("el viaje fue creado")//,response);
@@ -116,11 +117,11 @@ render() {
               name="carDriver"
             >
               <option value="">chofer</option>
-              <option value="1">Juan</option>
-              <option value="2">Kike</option>
-              <option value="3">Pablo</option>
-              <option value="4">Manuel</option>
-              <option value="5">Charly</option>
+              <option value="20100201">Juan</option>
+              <option value="20100202">Kike</option>
+              <option value="20100203">Pablo</option>
+              <option value="20100204">Manuel</option>
+              <option value="20100205">Charly</option>
             </select>
             {props.errors.carDriver && <div class="p-a-1 bg-warning" id="feedback">{props.errors.carDriver}</div>}
           <br />
