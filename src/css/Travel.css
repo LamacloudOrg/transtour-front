@@ -1,20 +1,4 @@
-.travel-main {
-    position:0 auto!;
-    transform: translate(-50, -50);
-    border: 1px whitesmoke blue;
-    padding: 1em;
-    background-color: white;
-}
-
-.travel-secondary{
-    position: relative;
-    margin-left: 0em;
-    margin-right: 10em;
-}
-
-.form-group input select{
-    margin-left: 10em;
-    margin-right: 10em;
-    max-width:50em;
-}
-
+.myform input.form-control {
+    display: block;  /* allows labels to sit on input when inline */
+    margin-bottom: 15px; /* gives padding to bottom of inline inputs */
+ }

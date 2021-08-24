@@ -11,13 +11,13 @@ class Home extends Component {
         if (!token) {   history.push("/") }
 
         return (
-            <div className="container-fluid">
+            <div className="container">
 
                 <div className="row">
-                    <div className="col-2">
+                    <div className="col-md-2">
                     <Menu />
                     </div>
-                    <div className="col-9">
+                    <div className="col-md-9">
                     <TravelForm />
                     </div>
                 </div>
