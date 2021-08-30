@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Menu from '../components/Menu'
-import Travels from '../components/Travels'
+import TravelForm from '../Form/TravelForm'
 
 
-class TravelPage extends Component {
+class TravelFormPage extends Component {
     render(){
 
         const { history } = this.props;
@@ -12,10 +12,10 @@ class TravelPage extends Component {
 
         return (
             <Menu>
-                <Travels/>
+                <TravelForm/>
             </Menu>
         )
     }
 }
 
-export default TravelPage;
+export default TravelFormPage;

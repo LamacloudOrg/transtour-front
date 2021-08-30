@@ -1,0 +1,10 @@
+$bg-color:#ecd8e9;
+
+$font-stack:"Helvetica, sans-serif";
+$primary-color: #333;
+
+body {
+    margin-top: 2em;
+    font: 100% $font-stack;
+    background-color:$bg-color
+}

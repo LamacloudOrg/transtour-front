@@ -5,7 +5,7 @@ import  {withRouter  } from 'react-router-dom';
 import { connect } from "react-redux";
 import { generateNumber, newTravel } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/Travel.css';
+import '../css/Travel.scss';
 
 class TravelForm extends Component {
 

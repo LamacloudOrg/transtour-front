@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  {withRouter  } from 'react-router-dom';
 import AuthenticationService from '../service/AuthenticationService'
-import '../css/Login.css';
+import '../css/Login.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Login extends Component {
