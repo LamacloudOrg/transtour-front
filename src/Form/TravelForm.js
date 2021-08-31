@@ -142,10 +142,10 @@ render() {
               >
                 <option value="">chofer</option>
                 <option value="20100201">Juan</option>
-                <option value="20100202">Kike</option>
-                <option value="20100203">Pablo</option>
+                <option value="93479822">Kike</option>
+                <option value="34404216">Pablo</option>
                 <option value="20100204">Manuel</option>
-                <option value="20100205">Charly</option>
+                <option value="27803204">Charly</option>
               </select>
               {props.errors.carDriver && <div class="p-a-1 bg-warning" id="feedback">{props.errors.carDriver}</div>}
             </div>
