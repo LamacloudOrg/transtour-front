@@ -262,7 +262,7 @@ render() {
 
 
           <label className="control-label">Importe total: </label>
-          <Field type="number" format={value => value || parseFloat(props.values.taxForReturn) + parseFloat( props.values.parkingAmount)} className="form-control" name="totalAmount" disabled/>
+          <Field type="number" format={value => value || parseFloat(props.values.taxForReturn) + parseFloat( props.values.parkingAmount)} className="form-control" name="totalAmount"/>
           {props.errors.totalAmount && <div class="p-a-1 bg-warning" id="feedback">{props.errors.totalAmount}</div>}
           <br/>
 
