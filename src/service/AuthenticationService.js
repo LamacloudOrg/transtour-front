@@ -1,6 +1,6 @@
 import Axios from './Axios';
 
-const service =new class Authetication {
+class Authetication {
     constructor() {
         this.endpoint = "v1/user";
     }
@@ -34,5 +34,6 @@ const service =new class Authetication {
     }
 }
 
+const service = new Authetication();
 
-export default service;
+export default service; 

@@ -12,9 +12,9 @@ function Routes() {
         <Switch>
           <Route exact path="/" component={Login}/>
           <Route exact path="/home" component={Home}/>
-          <Route exact path="/travels" component={Travels}/>
-          <Route exact path="/travel/crear" component={TravelFormPage}/>
-          <Route exact path="/vouchers" component={Voucher}/>
+          <Route exact path="/travels" component={Travels} />
+          <Route exact path="/travel/crear" component={TravelFormPage} />
+          <Route exact path="/vouchers" component={Voucher} />
         </Switch>
       </BrowserRouter>
   );

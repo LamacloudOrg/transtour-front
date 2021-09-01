@@ -1,6 +1,6 @@
 import Axios from './Axios';
 
-const service =new class TravelService {
+class TravelService {
     constructor() {
         this.endpoint = "service-travel/v1/travel";
        // this.endpoint = "v1/travel";
@@ -86,5 +86,7 @@ const service =new class TravelService {
      }
 }
 
+const service = new TravelService();
 
-export default service;
+export default service; 
+

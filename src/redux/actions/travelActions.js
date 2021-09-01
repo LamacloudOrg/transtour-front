@@ -4,6 +4,7 @@ const loadTravels= travels => ({ type: actionTypes.LOAD_TRAVELS ,payload:travels
 const travelAprove= travel => ({ type: actionTypes.TRAVEL_APROVED ,payload:travel});
 const travelCreation= travel => ({ type: actionTypes.TRAVEL_CREATION ,payload:travel});
 const newNumber= orderNumber => ({ type: actionTypes.TRAVEL_ORDER_NUMBER ,payload:orderNumber});
+const cleanNumber= orderNumber => ({ type: actionTypes.CLEAN_ORDER_NUMBER ,payload:orderNumber});
 
 
 export const newTravel = (travel) => {
@@ -19,6 +20,14 @@ export const generateNumber = () => {
         return TodoService.getOrderNumber().then(orderNumber => {
             dispatch(newNumber(orderNumber));
         }).catch(e => console.log(e));
+    };
+}
+
+
+export const cleanOrderNumber = (orderNumber) => {
+    return  function (dispatch) {
+        return 
+        dispatch(cleanNumber(orderNumber));
     };
 }
 

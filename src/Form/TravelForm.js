@@ -3,7 +3,8 @@ import { Formik,Field  } from 'formik';
 import * as Yup from 'yup';
 import  {withRouter  } from 'react-router-dom';
 import { connect } from "react-redux";
-import { generateNumber, newTravel } from "../redux/actions";
+import { generateNumber, newTravel,cleanOrderNumber,getAllDrivers} from "../redux/actions";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.scss';
 
@@ -11,27 +12,47 @@ class TravelForm extends Component {
 
   constructor(){
     super()
+    this.loadCar = this.loadCar.bind(this);
+    this.cars =[{"dni":"34404216","patent":"LM 289 BC"}]
     this.state = {
-      error:''
-   }
+      error:'',
+      chofer:'',
+      patent:''
+    }
+
+  }
+  
+  componentDidMount() {
+
+    this.props.loadDrivers()
+
+    if(this.props.newNumber==='0000'){
+      this.props.generateNumber();
+    }
   }
 
-  componentDidMount = () => {
-    this.props.generateNumber();
-  } 
+  loadCar (e){
+    const inputCar = document.getElementById("car")
+    const dni = e.target.value
+    const car = this.cars.filter((car)=> car.dni === dni)[0]
+    inputCar.value = car.patent.toString()
+    e.target.value = car.dni.toString()
+    this.setState({
+      error:this.state.error,
+      chofer:car.dni.toString(),
+      patent:  inputCar.value
+    })
 
+  }
+  
 render() {
-
-  const { newNumber}= this.props
-
-  console.log("show order Number",newNumber)
 
   const schema =Yup.object({
 
     orderNumber:Yup.string().required("Requerido"),
     dateCreated:Yup.date().required('Requerido'),
-    car:Yup.string().required("Requerido"),
-    carDriver:Yup.string().required("Requerido"),
+ //   car:Yup.string().required("Requerido"),
+ //   carDriver:Yup.string().required("Requerido"),
     time:Yup.string().required("Requerido"),
     company:Yup.string().required("Requerido"),
     //bc:Yup.string().required("Requerido"),
@@ -53,7 +74,7 @@ render() {
       <>
       <Formik
 
-      initialValues={{ orderNumber: newNumber, dateCreated:'', car:'', carDriver:'', time:'',company:'', 
+      initialValues={{ orderNumber: this.props.newNumber, dateCreated:'', car:this.state.patent, carDriver:this.state.chofer, time:'',company:'', 
       bc:'', passenger:'', reserveNumber:'', originAddress:'', destinyAddress:'', observation:'', amount:'',
       whitingTime:0.0, toll:0.0, parkingAmount:0.0, taxForReturn:0.0, totalAmount:0.0}}
       validationSchema={schema}
@@ -62,17 +83,21 @@ render() {
           console.log(values);
 
           try {
-            values.carDriver = parseInt(values.carDriver)
+            values.car = parseInt(this.state.patent)
+            values.carDriver = this.state.chofer
+            values.orderNumber = this.props.newNumber
          //   const response= await TravelService.create(values)
             this.props.create(values)
             console.log("el viaje fue creado")//,response);
+            this.props.cleanOrderNumber('0000');
             const { history } = this.props;
             history.push("/travels");
 
           } catch (error) {
-            console.log("No se pudo crear el viaje")
             this.setState({
-              'error':'No se pudo crear el viaje'
+              patent:this.state.patent,
+              chofer:this.state.chofer,
+              error:  'No se pudo crear el viaje'
             })
           }
       }}
@@ -126,7 +151,13 @@ render() {
             <div class="col-4 form-group">   
     
             <label className="control-label col-sm-2">Vehiculo: </label>
-            <input type="text" value={props.values.car} onChange={props.handleChange} className="form-control" name="car" />
+            <input type="text" 
+             value={props.values.car} 
+             value={this.state.patent}
+             onChange={props.handleChange}
+             onBlur={props.handleBlur} 
+             className="form-control" 
+             id="car" name="car" disabled/>
             {props.errors.car && <div class="p-a-1 bg-warning" id="feedback">{props.errors.car}</div>}
             <br/>
             </div>
@@ -135,17 +166,18 @@ render() {
             <label className="control-label col-sm-2">Chofer: </label>
             <select
                 onChange={props.handleChange}
+                onChange={(e)=>this.loadCar(e)}
                 onBlur={props.handleBlur}
                 value={props.values.carDriver}
+                value={this.state.chofer}
                 className="form-control"
                 name="carDriver"
               >
-                <option value="">chofer</option>
-                <option value="20100201">Juan</option>
-                <option value="93479822">Kike</option>
-                <option value="34404216">Pablo</option>
-                <option value="20100204">Manuel</option>
-                <option value="27803204">Charly</option>
+
+              {this.props.drivers.length >0 && this.props.drivers.map((driver)=>(
+                <option type="text" value={driver.dni}>{driver.name}</option>
+              ))
+              }
               </select>
               {props.errors.carDriver && <div class="p-a-1 bg-warning" id="feedback">{props.errors.carDriver}</div>}
             </div>
@@ -262,11 +294,22 @@ render() {
 
 
           <label className="control-label">Importe total: </label>
-          <Field type="number" format={value => value || parseFloat(props.values.taxForReturn) + parseFloat( props.values.parkingAmount)} className="form-control" name="totalAmount"/>
+          <Field type="number" format={value => value || parseFloat(props.values.taxForReturn) + parseFloat( props.values.parkingAmount)} className="form-control" name="totalAmount"d/>
           {props.errors.totalAmount && <div class="p-a-1 bg-warning" id="feedback">{props.errors.totalAmount}</div>}
           <br/>
 
-      <button type="submit" className="btn btn-primary">crear</button>
+          <div className="row">
+          <div className="col-md-2">  
+          <button type="submit" className="btn btn-primary">crear</button>
+          </div>
+          <div className="col-md-2">
+          <button type="button" className="btn btn-primary">cancelar</button>
+          </div>
+          <div className="col-md-2">
+          <button type="button" className="btn btn-primary">resetear</button>
+          </div>
+          </div>
+      
     </form>
     </>
 
@@ -283,16 +326,20 @@ render() {
 const mapStateToProps = (state) => {
 
   const { orderNumber} = state.travelReducer
+  const { drivers} = state.userReducer
   console.log("new order number",orderNumber)
   return {
     newNumber:orderNumber,
+    drivers: drivers || []
   };
 }
 
 const mapDispatchToProps = dispatch => {
 return {
   generateNumber: () => dispatch(generateNumber()),
-  create:(travel) => dispatch(newTravel(travel))
+  create:(travel) => dispatch(newTravel(travel)),
+  cleanOrderNumber:(orderNumber)=>dispatch(cleanOrderNumber(orderNumber)),
+  loadDrivers: ()=>dispatch(getAllDrivers())
 };
 };
 
