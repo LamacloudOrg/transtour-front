@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  {withRouter  } from 'react-router-dom';
 import AuthenticationService from '../service/AuthenticationService'
-import '../css/Login.css';
+import '../css/Login.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Login extends Component {
@@ -10,7 +10,7 @@ class Login extends Component {
       super()
       this.state = {
         form: {
-          userName: '',
+          dni: '',
           password: ''
         },
 
@@ -35,7 +35,7 @@ class Login extends Component {
    init =()=>{
     this.setState({
       form:{
-        userName: '',
+        dni: '',
         passWord: ''
       }})
   }
@@ -61,10 +61,10 @@ class Login extends Component {
         {this.state.error && <div className="aler-danger">{this.state.error}</div>}
 
           <div className="form-group">
-            <label>User: </label>
+            <label>Dni: </label>
             <br/>
             <input type="text" 
-               name="userName" 
+               name="dni"
                onChange={this.handleChange} 
                className="form-control"
             />

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Menu from '../components/Menu'
-import Travels from '../components/Travels'
+import Home from '../components/Home'
 
-
-class TravelPage extends Component {
+class HomePage extends Component {
     render(){
 
         const { history } = this.props;
@@ -11,11 +11,14 @@ class TravelPage extends Component {
         if (!token) {   history.push("/") }
 
         return (
+        
+            <>
             <Menu>
-                <Travels/>
-            </Menu>
+            <Home />
+            </Menu>            
+            </>
         )
     }
 }
 
-export default TravelPage;
+export default HomePage;

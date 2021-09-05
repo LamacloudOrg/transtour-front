@@ -27,7 +27,7 @@ class  Travels extends Component {
 
     render() {
         return(
-          <>
+            <div class="row">
             <table class="table table-striped">
             <thead>
                 <tr>
@@ -65,7 +65,7 @@ class  Travels extends Component {
             </tbody>
 
             </table>
-          </>
+          </div>
 
 )};
 
