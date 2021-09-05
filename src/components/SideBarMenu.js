@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import  {withRouter  } from 'react-router-dom';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { ProSidebar, Menu, MenuItem, SubMenu,SidebarHeader,SidebarContent } from 'react-pro-sidebar';
+import avatar from '../images/kike_avatar.jpeg'
 import css from '../css/Menu.scss';
 
 
@@ -35,6 +36,13 @@ class SideBarMenu extends Component {
     render() {      
         return (
           <ProSidebar >
+
+          <SidebarHeader>
+             <img className="avatar" src={avatar} alt="avatar" />
+            </SidebarHeader>
+
+            <SidebarContent>
+
             <Menu iconShape="circle">
               <MenuItem >Travels
               <SubMenu title="*" onClick={this.handleBoxToggleTravel} open={this.state.showBoxTravels}>
@@ -63,6 +71,7 @@ class SideBarMenu extends Component {
               </MenuItem>
               <MenuItem onClick={()=>this.handleLogout()}>Salir </MenuItem>
             </Menu>
+            </SidebarContent>
           </ProSidebar>
         );
     }

@@ -22,10 +22,16 @@ class TravelForm extends Component {
 
   }
   
-  componentDidMount() {
+  componentWillMount() {
 
     this.props.loadDrivers()
 
+    if(this.props.newNumber==='0000'){
+      this.props.generateNumber();
+    }
+  }
+
+  componentDidMount() {
     if(this.props.newNumber==='0000'){
       this.props.generateNumber();
     }
@@ -42,6 +48,8 @@ class TravelForm extends Component {
       chofer:car.dni.toString(),
       patent:  inputCar.value
     })
+
+    console.log(this.state)
 
   }
   
