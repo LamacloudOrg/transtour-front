@@ -13,7 +13,24 @@ class  TravelDetail extends Component {
         this.concat.bind(this);
         this.isAproved.bind(this);
         this.back.bind(this);
+
+        this.setState({
+            status:''
+        })
 	}
+
+    componentWillMount = () => {
+
+       // console.log(this.props)
+       // console.log("props location",this.props.location)
+        const {state} = this.props.location
+
+       // console.log("state",state)
+        const {detail} = state
+        this.setState({
+            status : detail.status
+        })
+    }
 
     toUpperCase=(name)=>{
         return name.toUpperCase()
@@ -30,9 +47,15 @@ class  TravelDetail extends Component {
 
     back=()=>{
         this.props.history.goBack();
-     }
-     
-    
+    }
+
+    aprove = (orderNumber)=>{
+        this.props.aproveTravel(orderNumber);
+        this.setState({
+            status:'APROVED'
+        })
+    }
+
     render() {
         console.log(this.props)
         console.log("props location",this.props.location)
@@ -63,18 +86,18 @@ class  TravelDetail extends Component {
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Destiny", detail.destinyAddress )} />
                
                     
-                    <input className="col-12 text-center bg-gradient-primary text-warning" type="text" disabled  value={this.concat("Status", detail.status )} />
+                    <input className="col-12 text-center bg-gradient-primary text-warning" type="text" disabled  value={this.concat("Status", this.state.status )} />
                     <br/>
                     {
-                        this.isAproved(detail.status) &&
+                        this.isAproved(this.state.status) &&
                         <div>
-                        <button type="button" className="col-4 text-center btn btn-primary">aprove</button>
+                        <button type="button" className="col-4 text-center btn btn-primary" onClick={()=>this.aprove(detail.orderNumber)}>aprove</button>
                         <button type="button" className="col-4 text-center btn btn-primary">desaprove</button>
                         <button type="button" className="col-4 text-center btn btn-primary" onClick={()=>this.back()}>back</button>
                         </div>
                     }
                     {
-                        !this.isAproved(detail.status) &&
+                        !this.isAproved(this.state.status) &&
                         <div>
                         <button type="button" className="col-12 text-center btn btn-primary" onClick={()=>this.back()}>back</button>
                         </div>
