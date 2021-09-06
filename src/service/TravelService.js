@@ -71,7 +71,7 @@ const service =new class TravelService {
 
         const page_ = page || 0;
 
-        const params ={ params: { page: page_,size:4} }
+        const params ={ params: { page: page_,size:20} }
 
         try {
  
