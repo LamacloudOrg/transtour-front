@@ -56,7 +56,7 @@ class TravelForm extends Component {
         <Formik
 
           initialValues={{
-            orderNumber: '', dateCreated: '', car: '', carDriver: '', time: '', company: '',
+            orderNumber: '', dateCreated: '', car: '', carDriver: '',carDriverName: '', time: '', company: '',
             bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
             whitingTimeAmout: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0
           }}
@@ -66,8 +66,12 @@ class TravelForm extends Component {
             console.log(values);
 
             try {
-              values.carDriver = parseInt(values.carDriver)
+             // values.carDriver = parseInt(values.carDriver)
               //   const response= await TravelService.create(values)
+
+              var arrayCarDriver = str.split("-");
+              values.carDriver = arrayCarDriver[0];
+              values.carDriverName = arrayCarDriver[1];
               this.props.create(values)
               console.log("el viaje fue creado")//,response);
               const { history } = this.props;
@@ -146,11 +150,11 @@ class TravelForm extends Component {
                       name="carDriver"
                     >
                       <option value="">chofer</option>
-                      <option value="20100201">Juan</option>
-                      <option value="93479822">Kike</option>
-                      <option value="34404216">Pablo</option>
-                      <option value="20100204">Manuel</option>
-                      <option value="27803204">Charly</option>
+                      <option value="20100201-Juan">Juan</option>
+                      <option value="93479822-Kike">Kike</option>
+                      <option value="34404216-Pablo">Pablo</option>
+                      <option value="20100204-Manuel">Manuel</option>
+                      <option value="27803204-Charly">Charly</option>
                     </select>
                     {props.errors.carDriver && <div class="p-a-1 bg-warning" id="feedback">{props.errors.carDriver}</div>}
                   </div>
