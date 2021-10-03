@@ -69,7 +69,7 @@ class TravelForm extends Component {
              // values.carDriver = parseInt(values.carDriver)
               //   const response= await TravelService.create(values)
 
-              var arrayCarDriver = str.split("-");
+              var arrayCarDriver = values.carDriver.split("-");
               values.carDriver = arrayCarDriver[0];
               values.carDriverName = arrayCarDriver[1];
               this.props.create(values)
