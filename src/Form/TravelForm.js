@@ -43,7 +43,7 @@ class TravelForm extends Component {
       destinyAddress: Yup.string().required("Requerido"),
       //observation:Yup.string().required("Requerido"),
       amount: Yup.number().required("Requerido"),
-      whitingTimeAmout: Yup.number().required("Requerido"),
+      whitingTime: Yup.number().required("Requerido"),
       toll: Yup.number().required("Requerido"),
       parkingAmount: Yup.number().required("Requerido"),
       taxForReturn: Yup.string().required("Requerido"),
@@ -58,7 +58,7 @@ class TravelForm extends Component {
           initialValues={{
             orderNumber: '', dateCreated: '', car: '', carDriver: '',carDriverName: '', time: '', company: '',
             bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
-            whitingTimeAmout: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0
+            whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0
           }}
           validationSchema={schema}
 
@@ -240,8 +240,8 @@ class TravelForm extends Component {
                   <div class="col-2 form-group">
 
                     <label className="control-label">Valor Hora Espera: </label>
-                    <input type="number" value={props.values.whitingTimeAmout} onChange={props.handleChange} className="form-control" name="whitingTimeAmout" />
-                    {props.errors.whitingTimeAmout && <div class="p-a-1 bg-warning" id="feedback">{props.errors.whitingTimeAmout}</div>}
+                    <input type="number" value={props.values.whitingTime} onChange={props.handleChange} className="form-control" name="whitingTime" />
+                    {props.errors.whitingTime && <div class="p-a-1 bg-warning" id="feedback">{props.errors.whitingTime}</div>}
                     <br />
                   </div>
 
