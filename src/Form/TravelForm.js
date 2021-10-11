@@ -240,7 +240,7 @@ class TravelForm extends Component {
                   <div class="col-2 form-group">
 
                     <label className="control-label">Valor Hora Espera: </label>
-                    <input type="number" value={props.values.whitingTimeAmout} onChange={props.handleChange} className="form-control" name="whitingTime" />
+                    <input type="number" value={props.values.whitingTimeAmout} onChange={props.handleChange} className="form-control" name="whitingTimeAmout" />
                     {props.errors.whitingTimeAmout && <div class="p-a-1 bg-warning" id="feedback">{props.errors.whitingTimeAmout}</div>}
                     <br />
                   </div>
