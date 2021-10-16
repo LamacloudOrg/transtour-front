@@ -30,6 +30,12 @@ class VoucherService {
             const file =  await response.data;
 
 
+            console.log(response.headers);
+
+
+            const [_, filename] = response.headers['content-disposition'].split('filename=');
+
+            const fileName = filename.split('.txt')
             const url = window.URL.createObjectURL(
                 new Blob([file]),
             );
@@ -38,7 +44,7 @@ class VoucherService {
             link.href = url;
             link.setAttribute(
                 'download',
-                `voucher.pdf`,
+                fileName+'.pdf',
             );
         
             // Append to html link element page
