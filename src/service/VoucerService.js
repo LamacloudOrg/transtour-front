@@ -1,6 +1,6 @@
 import Axios from './Axios';
 
-const service =new class TravelService {
+class VoucherService {
     constructor() {
         this.endpoint = "service-voucher/v1/voucher";
     }
@@ -30,6 +30,12 @@ const service =new class TravelService {
             const file =  await response.data;
 
 
+            console.log(response.headers);
+
+
+            const [_, filename] = response.headers['content-disposition'].split('filename=');
+
+            const fileName = filename.split('.txt')
             const url = window.URL.createObjectURL(
                 new Blob([file]),
             );
@@ -38,7 +44,7 @@ const service =new class TravelService {
             link.href = url;
             link.setAttribute(
                 'download',
-                `voucher.pdf`,
+                fileName+'.pdf',
             );
         
             // Append to html link element page
@@ -77,4 +83,6 @@ const service =new class TravelService {
     
 }
 
-export default service;
+const service = new VoucherService();
+
+export default service; 

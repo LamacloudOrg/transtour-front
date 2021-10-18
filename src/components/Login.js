@@ -3,6 +3,7 @@ import  {withRouter  } from 'react-router-dom';
 import AuthenticationService from '../service/AuthenticationService'
 import '../css/Login.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import transtourIcon from  '../images/transtourImage.png';
 
 class Login extends Component {
 
@@ -55,9 +56,13 @@ class Login extends Component {
 
     return (
 
-      <div className="containerPrincipal">
-        <div className="containerSecundario">
-                
+      <div className="containter">
+      <div className="row align-items-center h-100" >
+      <div className="col-4 mx-auto">
+      <div className="jumbotron">
+
+        <img 
+        src={transtourIcon} />
         {this.state.error && <div className="aler-danger">{this.state.error}</div>}
 
           <div className="form-group">
@@ -80,6 +85,8 @@ class Login extends Component {
             <button className="btn btn-primary" onClick={()=> this.startSession()}> Login </button>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     )
   } 

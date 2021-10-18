@@ -18,6 +18,12 @@ const travelReducer = (state = initialState, action) => {
             };
         }
 
+        case actionTypes.CLEAN_ORDER_NUMBER:{
+            return { ...state, 
+                orderNumber: action.payload
+            };
+        }
+
         case actionTypes.TRAVEL_CREATION: {
             return state;
         }
@@ -27,7 +33,7 @@ const travelReducer = (state = initialState, action) => {
             console.log("actual state TRAVEL_APROVED",state)
 
             let pos=-1;
-            let travel = state.travels.content.filter(function(item, index) { pos = index; return item.orderNumber == action.payload; });
+            let travel = state.travels.content.filter(function(item, index) { pos = index; return item.orderNumber === action.payload; });
             travel["status"]="aproved"
             let travels =[...state.travels.content,travel]
             return { ...state, 

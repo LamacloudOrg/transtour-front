@@ -1,6 +1,6 @@
 import Axios from './Axios';
 
-const service =new class TravelService {
+class TravelService {
     constructor() {
         this.endpoint = "service-travel/v1/travel";
        // this.endpoint = "v1/travel";
@@ -70,8 +70,7 @@ const service =new class TravelService {
     getAll = async (page)=>{
 
         const page_ = page || 0;
-
-        const params ={ params: { page: page_,size:20} }
+        const params ={ params: { page: page_,size:100} }
 
         try {
  
@@ -86,5 +85,7 @@ const service =new class TravelService {
      }
 }
 
+const service = new TravelService();
 
-export default service;
+export default service; 
+
