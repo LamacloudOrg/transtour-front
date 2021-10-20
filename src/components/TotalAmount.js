@@ -17,7 +17,7 @@ const TotalAmount =({values,setFieldValue,handleChange,handleBlur})=> {
 
   return(
     <input type="number"
-    defaultValue={values.totalAmount || '0'}
+    value={values.totalAmount || '0'}
     className="form-control"
     onChange={handleChange}
     onBlur={handleBlur}

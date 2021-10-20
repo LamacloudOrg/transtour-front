@@ -160,7 +160,7 @@ class TravelForm extends Component {
 
             {props => (
               <>
-                {<div className="row">this.state.error && <h3 className="text-center  text-danger"> {this.state.error}</h3> </div>}
+                {this.state.error && <div className="row"><h3 className="text-center  text-danger"> {this.state.error}</h3> </div>}
 
                 <form onSubmit={props.handleSubmit}>
 
