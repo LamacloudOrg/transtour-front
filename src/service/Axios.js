@@ -29,7 +29,7 @@ const agent = new https.Agent({
     //cert: crt,    
     // This is necessary only if using the client certificate authentication.
     requestCert: true,
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
     ca:crt
     // This is necessary only if the client uses the self-signed certificate.
     //ca: [fs.readFileSync('client-cert.pem')]
@@ -38,7 +38,7 @@ const agent = new https.Agent({
 const instance = axios.create({
     baseURL: 'https://209.126.85.7:8080/api',
     
-    timeout: 5000,
+    timeout: 20000,
     httpsAgent:agent,
     exposedHeaders: ['Content-Disposition'],
     headers: {

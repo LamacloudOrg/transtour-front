@@ -57,14 +57,16 @@ class  TravelDetail extends Component {
     }
 
     render() {
-        console.log(this.props)
-        console.log("props location",this.props.location)
+        //console.log(this.props)
+        //console.log("props location",this.props.location)
         const {state} = this.props.location
 
-        console.log("state",state)
+
+        if ( state === undefined) this.props.history.goBack();
+        //console.log("state",state)
         const {detail} = state
 
-        console.log("detail",detail)
+        //console.log("detail",detail)
 
         if (!detail) this.props.history.goBack();
 
@@ -79,7 +81,7 @@ class  TravelDetail extends Component {
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Date", detail.dateCreated + " " +detail.time  )} />
        
 
-                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Driver", detail.carDriver )} />
+                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Driver",detail.carDriverName + "(" + detail.carDriver +")" )} />
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("car", this.toUpperCase(detail.car) )} />
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Company", detail.company )} />
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Origin", detail.originAddress )} />

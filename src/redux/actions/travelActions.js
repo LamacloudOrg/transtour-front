@@ -11,7 +11,9 @@ export const newTravel = (travel) => {
     return  function (dispatch) {
         return TodoService.create(travel).then(status => {
             dispatch(travelCreation(travel));
-        });
+        }).catch((e)=>{
+            throw new Error(e)
+        })
     };
 }
 

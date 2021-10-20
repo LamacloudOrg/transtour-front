@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { Formik, Field } from 'formik';
+import { Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { newTravel, getAllDrivers } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.scss';
+import TotalAmount from '../components/TotalAmount';
 
 class TravelForm extends Component {
 
   constructor() {
     super()
     this.loadCar = this.loadCar.bind(this);
+    this.resetValues = this.resetValues.bind(this);    
     this.cars = [{ "dni": "34404216", "patent": "289"}, 
                  { "dni": "27803204", "patent": "284"},
                  { "dni": "93479822", "patent": "123"},
@@ -55,7 +57,51 @@ class TravelForm extends Component {
     })
   }
 
+  resetValues(values){
+    let valuesArray = Object.values(values);
+  
+    for (let value of valuesArray) {
+      values[value] =''
+    }
+
+ }
+
   render() {
+  
+    let initValues = {
+      orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer,
+      carDriverName:'', time: '', company: '',
+      bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
+      whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0
+    }
+
+    
+
+    if (this.props.location.state !== undefined){
+        //console.log("state",state)
+      const {detail} = this.props.location.state
+      console.log("carDriver",detail.carDriver)
+      const car =this.cars.filter((car) => car.dni === detail.carDriver)[0]
+    
+      initValues.carDriver =detail.carDriver
+       initValues.car = car.patent
+      initValues.orderNumber = detail.orderNumber
+      initValues.dateCreated = detail.dateCreated
+      initValues.passenger = detail.passenger
+      initValues.time = detail.time
+      initValues.company = detail.company
+      initValues.bc = detail.bc
+      initValues.reserveNumber = detail.reserveNumber
+      initValues.observation = detail.observation
+      initValues.originAddress = detail.originAddress
+      initValues.destinyAddress = detail.destinyAddress
+      initValues.amount = detail.amount
+      initValues.toll = detail.toll
+      initValues.taxForReturn = detail.taxForReturn
+      initValues.parkingAmount = detail.parkingAmount
+      initValues.whitingTime = detail.whitingTime
+      initValues.totalAmount = parseFloat(detail.amount) + parseFloat(detail.toll) +  parseFloat(detail.taxForReturn) +  parseFloat(detail.parkingAmount) +  parseFloat(detail.whitingTime)  
+    }
 
     const schema = Yup.object({
 
@@ -84,11 +130,7 @@ class TravelForm extends Component {
         {
           !this.state.isLoading && <Formik
 
-            initialValues={{
-              orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer, time: '', company: '',
-              bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
-              whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0
-            }}
+            initialValues={initValues}
             validationSchema={schema}
 
             onSubmit={async (values, actions) => {
@@ -96,8 +138,11 @@ class TravelForm extends Component {
               try {
                 values.car = this.state.patent
                 values.carDriver = this.state.chofer
-                values.reserveNumber = this.state.orderNumber
-                
+                const driver = this.props
+                .drivers.filter((driver)=> driver.  dni ===values.carDriver )[0]
+                values.carDriverName = driver.name
+                    
+                values.reserveNumber = this.state.orderNumber       
                 console.log("antes de llamar" , values);
                 this.props.create(values)
                 const { history } = this.props;
@@ -115,15 +160,26 @@ class TravelForm extends Component {
 
             {props => (
               <>
-                {this.state.error && <h3> {this.state.error}</h3>}
+                {<div className="row">this.state.error && <h3 className="text-center  text-danger"> {this.state.error}</h3> </div>}
 
                 <form onSubmit={props.handleSubmit}>
 
                   <div class="row">
                     <div class="col-4 form-group">
-
+                    {props.values.orderNumber =='' &&
+                       <>
                       <label className="control-label">Numero Orden: </label>
                       <input type="text" defaultValue={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" />
+                      </>
+                    }
+
+                    {props.values.orderNumber !=='' &&
+                       <>
+                      <label className="control-label">Numero Orden: </label>
+                      <input type="text" defaultValue={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" disabled />
+                      </>
+                    }
+
                     </div>
 
 
@@ -162,8 +218,7 @@ class TravelForm extends Component {
 
                       <label className="control-label col-sm-2">Vehiculo: </label>
                       <input type="text"
-                        value={props.values.car}
-                        value={this.state.patent}
+                        value={this.state.patent !== '' ? this.state.patent : props.values.car}
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
                         className="form-control"
@@ -178,8 +233,7 @@ class TravelForm extends Component {
                         onChange={props.handleChange}
                         onChange={(e) => this.loadCar(e)}
                         onBlur={props.handleBlur}
-                        value={props.values.carDriver}
-                        value={this.state.chofer}
+                        value={this.state.chofer ? this.state.chofer :props.values.carDriver}
                         className="form-control"
                         name="carDriver"
                       >
@@ -275,7 +329,9 @@ class TravelForm extends Component {
                   <div class="row">
                     <div class="col-2 form-group">
                       <label className="control-label">Importe: </label>
-                      <input type="number" value={props.values.amount} onChange={props.handleChange} className="form-control" name="amount" />
+                      <input type="number" value={props.values.amount} 
+                      onChange={props.handleChange}
+                      className="form-control" name="amount" />
                       {props.errors.amount && <div class="p-a-1 bg-warning" id="feedback">{props.errors.amount}</div>}
                       <br />
                     </div>
@@ -283,28 +339,35 @@ class TravelForm extends Component {
                     <div class="col-2 form-group">
 
                       <label className="control-label">Espera horas: </label>
-                      <input type="number" value={props.values.whitingTime} onChange={props.handleChange} className="form-control" name="whitingTime" />
+                      <input type="number" value={props.values.whitingTime} 
+                      onChange={props.handleChange}
+                      className="form-control" name="whitingTime" />
                       {props.errors.whitingTime && <div class="p-a-1 bg-warning" id="feedback">{props.errors.whitingTime}</div>}
                       <br />
                     </div>
 
                     <div class="col-2 form-group">
                       <label className="control-label">Peajes: </label>
-                      <input type="number" value={props.values.toll} onChange={props.handleChange} className="form-control" name="toll" />
+                      <input type="number" value={props.values.toll} 
+                      onChange={props.handleChange}
+                      className="form-control" name="toll" />
                       {props.errors.toll && <div class="p-a-1 bg-warning" id="feedback">{props.errors.toll}</div>}
                       <br />
                     </div>
 
                     <div class="col-2 form-group">
                       <label className="control-label">Estacionamiento: </label>
-                      <input type="number" value={props.values.parkingAmount} onChange={props.handleChange} className="form-control" name="parkingAmount" />
+                      <input type="number" value={props.values.parkingAmount} 
+                      onChange={props.handleChange}
+                      className="form-control" name="parkingAmount" />
                       {props.errors.parkingAmount && <div class="p-a-1 bg-warning" id="feedback">{props.errors.parkingAmount}</div>}
                       <br />
                     </div>
 
                     <div class="col-3 form-group">
                       <label className="control-label">Recargo x vuelta: </label>
-                      <input type="number" value={props.values.taxForReturn} onChange={props.handleChange} className="form-control" name="taxForReturn" />
+                      <input type="number" value={props.values.taxForReturn} 
+                      onChange={props.handleChange} className="form-control" name="taxForReturn" />
                       {props.errors.taxForReturn && <div class="p-a-1 bg-warning" id="feedback">{props.errors.taxForReturn}</div>}
                       <br />
                     </div>
@@ -314,7 +377,15 @@ class TravelForm extends Component {
 
 
                   <label className="control-label">Importe total: </label>
-                  <Field type="number" format={value => value || parseFloat(props.values.taxForReturn) + parseFloat(props.values.parkingAmount)} className="form-control" name="totalAmount" d />
+                  <TotalAmount 
+                  values={props.values} 
+                  setFieldValue={props.setFieldValue} 
+                  handleChange={props.handleChange} 
+                  handleBlur={props.handleBlur} 
+                  value={props.values.totalAmount}
+                  id="totalAmount"
+                  name="totalAmount"
+                  />   
                   {props.errors.totalAmount && <div class="p-a-1 bg-warning" id="feedback">{props.errors.totalAmount}</div>}
                   <br />
 
@@ -326,7 +397,10 @@ class TravelForm extends Component {
                       <button type="button" className="btn btn-primary">cancelar</button>
                     </div>
                     <div className="col-md-2">
-                      <button type="button" className="btn btn-primary">resetear</button>
+                      <button type="button" 
+                      className="btn btn-primary"
+                      onClick={()=> this.resetValues(props.values)}
+                      >resetear</button>
                     </div>
                   </div>
 

@@ -14,6 +14,7 @@ class  Travels extends Component {
         this.toUpperCase.bind(this);
         this.isAproved.bind(this);
         this.loadInfo.bind(this);
+        this.handleEdit.bind(this);
         
         this.state = {
             isLoading:true
@@ -47,6 +48,15 @@ class  Travels extends Component {
         pathname: '/travel/info',
         state: { detail: travel }
       })
+   }
+
+   handleEdit=(travel)=>{
+    console.log("editando travel",travel);   
+    this.props.history.push({
+        pathname: '/travel/crear',
+        state: { detail: travel }
+      })
+
    }
 
     
@@ -103,6 +113,7 @@ class  Travels extends Component {
                         <td><a>
                         <img 
                         src={pencil} alt="edit"
+                        onClick={()=>this.handleEdit(element)}
                         style={{
                             width: '20px',
                             height: '20px',
