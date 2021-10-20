@@ -72,7 +72,7 @@ class TravelForm extends Component {
       orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer,
       carDriverName:'', time: '', company: '',
       bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
-      whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0
+      whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
     }
 
     
@@ -82,7 +82,7 @@ class TravelForm extends Component {
       const {detail} = this.props.location.state
       console.log("carDriver",detail.carDriver)
       const car =this.cars.filter((car) => car.dni === detail.carDriver)[0]
-    
+      initValues.isEdition = true
       initValues.carDriver =detail.carDriver
        initValues.car = car.patent
       initValues.orderNumber = detail.orderNumber
@@ -166,17 +166,17 @@ class TravelForm extends Component {
 
                   <div class="row">
                     <div class="col-4 form-group">
-                    {props.values.orderNumber =='' &&
+                    {!props.values.isEdition &&
                        <>
                       <label className="control-label">Numero Orden: </label>
-                      <input type="text" defaultValue={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" />
+                      <input type="text" value={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" />
                       </>
                     }
 
-                    {props.values.orderNumber !=='' &&
+                    {props.values.isEdition &&
                        <>
                       <label className="control-label">Numero Orden: </label>
-                      <input type="text" defaultValue={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" disabled />
+                      <input type="text" value={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" disabled />
                       </>
                     }
 
