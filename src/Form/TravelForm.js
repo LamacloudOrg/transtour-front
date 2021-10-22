@@ -14,13 +14,14 @@ class TravelForm extends Component {
     super()
     this.loadCar = this.loadCar.bind(this);
     this.resetValues = this.resetValues.bind(this);    
-    this.cars = [{ "dni": "34404216", "patent": "289"}, 
+    this.cars = [{ "dni": "Seleccione", "patent": ""},
+                 { "dni": "34404216", "patent": "289"}, 
                  { "dni": "27803204", "patent": "284"},
                  { "dni": "93479822", "patent": "123"},
                  { "dni": "20100201", "patent": "200"},
                  { "dni": "20100204", "patent": "204"}
                 ]
-    this.company = ["Covance", "Yamaha", "Naranja", "Casa de la Rioja", "GL Consulting"]
+    this.company = ["Seleccione", "Covance", "Yamaha", "Naranja", "Casa de la Rioja", "GL Consulting"]
     this.state = {
       error: '',
       chofer: '',
@@ -142,7 +143,7 @@ class TravelForm extends Component {
                 .drivers.filter((driver)=> driver.  dni ===values.carDriver )[0]
                 values.carDriverName = driver.name
                     
-                values.reserveNumber = this.state.orderNumber       
+                values.reserveNumber = values.orderNumber       
                 console.log("antes de llamar" , values);
                 this.props.create(values)
                 const { history } = this.props;

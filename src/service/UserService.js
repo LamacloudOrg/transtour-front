@@ -3,7 +3,9 @@ class UserService{
 
 
     constructor() {
-        this.taxiDrivers = [{"dni":"20100201","name":"Juan"},
+        this.taxiDrivers = [
+        {"dni":"Seleccione","name":"Seleccione"},
+        {"dni":"20100201","name":"Juan"},
         {"dni":"93479822","name":"Kike"},
         {"dni":"93479822","name":"Quique"},
         {"dni":"34404216","name":"Pablo"},
