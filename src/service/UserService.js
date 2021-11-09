@@ -5,13 +5,14 @@ class UserService{
     constructor() {
         this.taxiDrivers = [
         {"dni":"Seleccione","name":"Seleccione"},
-        {"dni":"20100201","name":"Juan"},
-        {"dni":"93479822","name":"Kike"},
-        {"dni":"93479822","name":"Quique"},
-        {"dni":"34404216","name":"Pablo"},
-        {"dni":"20100204","name":"Manuel"},
-        {"dni":"27803204","name":"charly"}
-    
+        {"dni":"93479822","name":"Enrique Neyra"},
+        {"dni":"27636365","name":"Alejandro Nieto"},
+        {"dni":"93479823","name":"Gustavo Campos"},
+        {"dni":"18444560","name":"Fabio Battaglini"},
+        {"dni":"95624827","name":"José Luis Valero "},
+        {"dni":"21947720","name":"Pablo Failoni"},        
+        {"dni":"34404216","name":"Pablo O Malianni"},
+        {"dni":"27803204","name":"Carlos Laffitte"}       
         ];
     }
 

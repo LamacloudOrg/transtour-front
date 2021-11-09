@@ -14,14 +14,17 @@ class TravelForm extends Component {
     super()
     this.loadCar = this.loadCar.bind(this);
     this.resetValues = this.resetValues.bind(this);    
-    this.cars = [{ "dni": "Seleccione", "patent": ""},
-                 { "dni": "34404216", "patent": "289"}, 
-                 { "dni": "27803204", "patent": "284"},
-                 { "dni": "93479822", "patent": "123"},
-                 { "dni": "20100201", "patent": "200"},
-                 { "dni": "20100204", "patent": "204"}
+    this.cars = [{ "dni": "Seleccione", "patent": ""},        
+                 { "dni": "93479822", "patent": "AE 702 HL"},
+                 { "dni": "27636365", "patent": "MYG 330"},  
+                 { "dni": "93479823", "patent": "AE 702 HL"},  
+                 { "dni": "18444560", "patent": "ORM 938"},
+                 { "dni": "95624827", "patent": "AE 612 WX"},
+                 { "dni": "21947720", "patent": "AB 837 MB"},
+                 { "dni": "34404216", "patent": "XXL 999"},  //pali
+                 { "dni": "27803204", "patent": "LUC 284"}   //charly
                 ]
-    this.company = ["Seleccione", "Covance", "Yamaha", "Naranja", "Casa de la Rioja", "GL Consulting"]
+    this.company = ["Seleccione", "Particular", "Covance", "Yamaha", "Naranja", "Casa de la Rioja", "GL Consulting"]
     this.state = {
       error: '',
       chofer: '',
@@ -223,7 +226,7 @@ class TravelForm extends Component {
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
                         className="form-control"
-                        id="car" name="car" disabled />
+                        id="car" name="car" />
                       {props.errors.car && <div class="p-a-1 bg-warning" id="feedback">{props.errors.car}</div>}
                       <br />
                     </div>
