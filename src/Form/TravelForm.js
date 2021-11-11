@@ -21,6 +21,9 @@ class TravelForm extends Component {
                  { "dni": "18444560", "patent": "ORM 938"},
                  { "dni": "95624827", "patent": "AE 612 WX"},
                  { "dni": "21947720", "patent": "AB 837 MB"},
+                 { "dni": "6057620",  "patent": "HCJ 732"},
+                 { "dni": "29052733", "patent": "MFQ 460"},
+                 { "dni": "21709713", "patent": "AC 385"},
                  { "dni": "34404216", "patent": "XXL 999"},  //pali
                  { "dni": "27803204", "patent": "LUC 284"}   //charly
                 ]
