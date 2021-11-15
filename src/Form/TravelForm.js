@@ -7,6 +7,7 @@ import { newTravel, getAllDrivers,getAllCompany } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.scss';
 import TotalAmount from '../components/TotalAmount';
+import { ThumbUpSharp } from '@material-ui/icons';
 
 class TravelForm extends Component {
 
@@ -26,7 +27,7 @@ class TravelForm extends Component {
   }
 
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.loadDrivers();
     this.props.loadCompanies();
     this.setState({
@@ -75,14 +76,15 @@ class TravelForm extends Component {
 
     
 
-    if (this.props.location.state !== undefined){
-        //console.log("state",state)
+    if (this.props.location.state !== undefined && !this.state.isLoading && this.props.drivers !== undefined){
       const {detail} = this.props.location.state
-      console.log("carDriver",detail.carDriver)
-      const car =this.cars.filter((car) => car.dni === detail.carDriver)[0]
+      console.log("mis drivers ", this.props.drivers)
+      const driver_ = this.props.drivers.filter((driver) => driver.dni.toString() === detail.carDriver)[0]
+      console.log(driver_)
       initValues.isEdition = true
       initValues.carDriver =detail.carDriver
-       initValues.car = car.patent
+      if (driver_ !==undefined) initValues.car = driver_.car.id
+
       initValues.orderNumber = detail.orderNumber
       initValues.dateCreated = detail.dateCreated
       initValues.passenger = detail.passenger
@@ -99,6 +101,7 @@ class TravelForm extends Component {
       initValues.parkingAmount = detail.parkingAmount
       initValues.whitingTime = detail.whitingTime
       initValues.totalAmount = parseFloat(detail.amount) + parseFloat(detail.toll) +  parseFloat(detail.taxForReturn) +  parseFloat(detail.parkingAmount) +  parseFloat(detail.whitingTime)  
+
     }
 
     const schema = Yup.object({

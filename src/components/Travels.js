@@ -22,11 +22,9 @@ class  Travels extends Component {
       
 	}
 
-   componentWillMount = () => {
-       this.props.loadTravels();
-   }
 
-   componentDidMount = ()=>{
+    componentWillMount() {
+        this.props.loadTravels();
         this.setState({
             isLoading:false
         })

@@ -1,5 +1,5 @@
 export const LOAD_TRAVELS =  "LOAD_TRAVELS";
-export const LOAD_DRIVERS =  "LOAD_TRAVELS";
+export const LOAD_DRIVERS =  "LOAD_DRIVERS";
 export const LOAD_COMPANY =  "LOAD_COMPANY";
 export const TRAVEL_APROVED = "TRAVEL_APROVE";
 export const TRAVEL_CREATION = "TRAVEL_APROVE";
