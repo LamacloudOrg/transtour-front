@@ -1,16 +1,16 @@
 import * as actionTypes from '../actions/actionTypes';
 
 var initialState = {
-    drivers: [],
+    companies: [],
     isLoading:true
 }
 
-const userReducer = (state = initialState, action) => {
+const companyReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case actionTypes.LOAD_DRIVERS: {
+        case actionTypes.LOAD_COMPANY: {
             return { ...state, 
-                drivers: action.payload
+                companies: action.payload
             };
         }
 
@@ -20,4 +20,4 @@ const userReducer = (state = initialState, action) => {
 
 }
 
-export default userReducer;
+export default companyReducer;

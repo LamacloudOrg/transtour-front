@@ -1,16 +1,16 @@
 import Axios from './Axios';
 
-class UserService{
+class CompanyService{
 
     constructor() {
-        this.endpoint = "/service-user/v1/user";
+        this.endpoint = "/service-user/v1/company";
     } 
 
-    getAllDrivers= async ()=>{
+    getAllCompany= async ()=>{
   
         try {
-            console.log("obteniendpo drivers")
-            const response = await Axios.get(this.endpoint+"/find/drivers")
+            console.log("obteniendpo compañias")
+            const response = await Axios.get(this.endpoint)
             const result =  await response.data;
             return result   
            } catch (error) {
@@ -20,6 +20,6 @@ class UserService{
 
 }
 
-const service = new UserService();
+const service = new CompanyService();
 
 export default service; 

@@ -3,7 +3,7 @@ import { Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { newTravel, getAllDrivers } from "../redux/actions";
+import { newTravel, getAllDrivers,getAllCompany } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.scss';
 import TotalAmount from '../components/TotalAmount';
@@ -14,51 +14,42 @@ class TravelForm extends Component {
     super()
     this.loadCar = this.loadCar.bind(this);
     this.resetValues = this.resetValues.bind(this);    
-    this.cars = [{ "dni": "Seleccione", "patent": ""},        
-                 { "dni": "93479822", "patent": "AE 702 HL"},
-                 { "dni": "27636365", "patent": "MYG 330"},  
-                 { "dni": "93479823", "patent": "AE 702 HL"},  
-                 { "dni": "18444560", "patent": "ORM 938"},
-                 { "dni": "95624827", "patent": "AE 612 WX"},
-                 { "dni": "21947720", "patent": "AB 837 MB"},
-                 { "dni": "6057620",  "patent": "HCJ 732"},
-                 { "dni": "29052733", "patent": "MFQ 460"},
-                 { "dni": "21709713", "patent": "AC 385"},
-                 { "dni": "34404216", "patent": "XXL 999"},  //pali
-                 { "dni": "27803204", "patent": "LUC 284"}   //charly
-                ]
-    this.company = ["Seleccione", "Particular", "Covance", "Yamaha", "Naranja", "Casa de la Rioja", "GL Consulting"]
+    
     this.state = {
       error: '',
       chofer: '',
+      choferName: '',
       patent: '',
       isLoading: true,
       company: ''
     }
   }
 
-  componentWillMount() {
-    this.props.loadDrivers();
-  }
 
   componentDidMount() {
+    this.props.loadDrivers();
+    this.props.loadCompanies();
     this.setState({
-      error: this.state.error,
-      chofer: this.state.chofer,
-      patent: this.state.patent,
+      error: '',
+      chofer: '',
+      choferName:'',
+      patent: '',
       isLoading: false,
+      company: ''
     })
   }
 
   loadCar(e) {
     const inputCar = document.getElementById("car")
     const dni = e.target.value
-    const car = this.cars.filter((car) => car.dni === dni)[0]
-    inputCar.value = car.patent.toString()
-    e.target.value = car.dni.toString()
+    const driver_ =  this.props.drivers.filter((driver) => driver.dni.toString() === dni)[0]
+    //console.log("car obtenido",car);
+    inputCar.value = driver_.car.id.toString()
+   // e.target.value = car.dni.toString()
     this.setState({
       error: this.state.error,
-      chofer: car.dni.toString(),
+      chofer: driver_.dni.toString(),
+      choferName:driver_.fullName,
       patent: inputCar.value.toString(),
       isLoading: this.state.isLoading,
     })
@@ -77,7 +68,7 @@ class TravelForm extends Component {
   
     let initValues = {
       orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer,
-      carDriverName:'', time: '', company: '',
+      carDriverName:this.state.choferName, time: '', company: '',
       bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
       whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
     }
@@ -145,11 +136,9 @@ class TravelForm extends Component {
               try {
                 values.car = this.state.patent
                 values.carDriver = this.state.chofer
-                const driver = this.props
-                .drivers.filter((driver)=> driver.  dni ===values.carDriver )[0]
-                values.carDriverName = driver.name
-                    
-                values.reserveNumber = values.orderNumber       
+                values.carDriverName = this.state.choferName
+                values.reserveNumber = values.orderNumber
+      
                 console.log("antes de llamar" , values);
                 this.props.create(values)
                 const { history } = this.props;
@@ -158,6 +147,7 @@ class TravelForm extends Component {
                 this.setState({
                   patent: this.state.patent,
                   chofer: this.state.chofer,
+                  choferName:this.state.choferName,
                   isLoading: this.state.isLoading,
                   error: 'No se pudo crear el viaje'
                 })
@@ -246,7 +236,7 @@ class TravelForm extends Component {
                       >
 
                         {this.props.drivers.length > 0 && this.props.drivers.map((driver) => (
-                          <option type="text" value={driver.dni}>{driver.name}</option>
+                          <option type="text" value={driver.dni}>{driver.fullName}</option>
                         ))
                         }
                       </select>
@@ -262,8 +252,8 @@ class TravelForm extends Component {
                         name="company"
                       >
 
-                        {this.company.length > 0 && this.company.map((company) => (
-                          <option type="text" value={company}>{company}</option>
+                        {this.props.companies.length > 0 && this.props.companies.map((company) => (
+                          <option type="text" value={company.fullName}>{company.nickName}</option>
                         ))
                         }
                       </select>
@@ -428,15 +418,18 @@ class TravelForm extends Component {
 
 const mapStateToProps = (state) => {
   const { drivers } = state.userReducer
+  const { companies } = state.companyReducer
   return {
-    drivers: drivers
+    drivers: drivers,
+    companies:companies
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     create: (travel) => dispatch(newTravel(travel)),
-    loadDrivers: () => dispatch(getAllDrivers())
+    loadDrivers: () => dispatch(getAllDrivers()),
+    loadCompanies: () => dispatch(getAllCompany())
   };
 };
 
