@@ -80,6 +80,7 @@ class TravelService {
          const result =  await response.data;
          return result   
         } catch (error) {
+            console.log("obtener travels",error);
             throw new Error(error)
         }  
      }

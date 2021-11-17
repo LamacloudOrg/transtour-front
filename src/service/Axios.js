@@ -26,13 +26,11 @@ OvbcKKbgdv6AQy2+oEsEOwkuwtEpedpg0tV+esacSRGTbR8iqh8/FSfrzwHryp8x
 -----END CERTIFICATE-----`
 const agent = new https.Agent({ 
     //key: 'transtoru-api',
-    //cert: crt,    
     // This is necessary only if using the client certificate authentication.
     requestCert: true,
     rejectUnauthorized: false,
     ca:crt
-    // This is necessary only if the client uses the self-signed certificate.
-    //ca: [fs.readFileSync('client-cert.pem')]
+    
   });
 
 const instance = axios.create({
@@ -43,26 +41,24 @@ const instance = axios.create({
     exposedHeaders: ['Content-Disposition'],
     headers: {
     'accept': 'application/json;q=0.9,text/plain',
-    'Content-Type': 'application/json',
-    //xsrfCookieName: 'XSRF-TOKEN', // default
-    // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
-    //xsrfHeaderName: 'X-XSRF-TOKEN', // default
-    //'Allow-Origin':'http://localhost'
+    'Content-Type': 'application/json'
     }
   });
 
 
   instance.interceptors.request.use(request => {
- //   Descomentar esta linea para el request  
- //   console.log('Starting Request', JSON.stringify(request, null, 2))
- //     const token = localStorage.getItem("token") || "";
- //     request.headers.authorization= 'Bearer '+token  
-      return request
+    if (request.url === "/service-user/v1/user/oauth/token") return request;
+    if (request.headers["Authorization"] === undefined){
+      const token = localStorage.getItem("token") || null;
+      request.headers["Authorization"]= 'Bearer '+token 
+    }  
+    return request
   })
   
   instance.interceptors.response.use(response => {
- //   Descomentar esta linea para el response
-//    console.log('Response:', JSON.stringify(response, null, 2))
+      if (response.status == "403"){
+        localStorage.removeItem("token")
+      }
       return response
   })
 
