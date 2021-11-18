@@ -41,7 +41,8 @@ const instance = axios.create({
     exposedHeaders: ['Content-Disposition'],
     headers: {
     'accept': 'application/json;q=0.9,text/plain',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Cache-Control':'no-cache'
     }
   });
 
