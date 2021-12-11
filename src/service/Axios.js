@@ -29,7 +29,7 @@ const agent = new https.Agent({
     // This is necessary only if using the client certificate authentication.
     requestCert: true,
     rejectUnauthorized: false,
-    ca:crt
+    cert:crt
     
   });
 
