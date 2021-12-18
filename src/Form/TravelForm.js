@@ -3,7 +3,7 @@ import { Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { newTravel, getAllDrivers,getAllCompany } from "../redux/actions";
+import { newTravel,travelEdition, getAllDrivers,getAllCompany } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.scss';
 import TotalAmount from '../components/TotalAmount';
@@ -106,7 +106,7 @@ class TravelForm extends Component {
 
     const schema = Yup.object({
 
-      orderNumber: Yup.string().required("Requerido"),
+     // orderNumber: Yup.string().required("Requerido"),
       dateCreated: Yup.date().required('Requerido'),
       time: Yup.string().required("Requerido"),
       company: Yup.string().required("Requerido"),
@@ -140,10 +140,8 @@ class TravelForm extends Component {
                 values.car = this.state.patent
                 values.carDriver = this.state.chofer
                 values.carDriverName = this.state.choferName
-                values.reserveNumber = values.orderNumber
-      
                 console.log("antes de llamar" , values);
-                this.props.create(values)
+                initValues.isEdition === true ? this.props.update(values)  : this.props.create(values)
                 const { history } = this.props;
                 history.push("/travels");
               } catch (error) {
@@ -169,7 +167,7 @@ class TravelForm extends Component {
                     {!props.values.isEdition &&
                        <>
                       <label className="control-label">Numero Orden: </label>
-                      <input type="text" value={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" />
+                      <input type="text" value={props.values.orderNumber} onChange={props.handleChange} className="form-control" name="orderNumber" disabled />
                       </>
                     }
 
@@ -294,7 +292,11 @@ class TravelForm extends Component {
 
                     <div class="col-4 form-group">
                       <label className="control-label">Numero Reserva: </label>
-                      <input type="text" value={props.values.orderNumber} className="form-control" name="reserveNumber" disabled />
+                      <input type="text" 
+                      value={props.values.reserveNumber}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                      className="form-control" name="reserveNumber" />
                     </div>
                     <br />
                   </div>
@@ -431,6 +433,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   return {
     create: (travel) => dispatch(newTravel(travel)),
+    update: (travel) => dispatch(travelEdition(travel)),
     loadDrivers: () => dispatch(getAllDrivers()),
     loadCompanies: () => dispatch(getAllCompany())
   };

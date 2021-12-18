@@ -19,6 +19,20 @@ class TravelService {
        }  
     }
 
+    update = async (form)=>{
+        try {
+ 
+         console.log("creacion de un viaje",form)
+             
+         const response = await Axios.put(this.endpoint+"/update",form)
+         const result =  await response.data;
+         return result   
+        } catch (error) {
+            console.log("no se pudo crear el viaje",error)
+            throw new Error(error)
+        }  
+     }
+
     aprove = async (travel)=>{
         try {
  
@@ -35,17 +49,6 @@ class TravelService {
         try {
             console.log("desprobacion del viaje",travel)
             const response = await Axios.post(this.endpoint+"/reject",travel)
-            const result =  await response.data;
-            return result   
-        }catch (error) {
-            throw new Error(error)
-        }  
-    }
-
-    getOrderNumber = async ()=>{
-        try {
-            console.log("getOrderNumber")
-            const response = await Axios.get(this.endpoint+"/orederNumber")
             const result =  await response.data;
             return result   
         }catch (error) {
