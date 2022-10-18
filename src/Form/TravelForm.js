@@ -69,7 +69,7 @@ class TravelForm extends Component {
     let initValues = {
       orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer,
       carDriverName:this.state.choferName, time: '', company: '',
-      bc: '', passenger: '', email: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
+      bc: '', passengerName: '', passengerEmail: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
       whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
     }
 
@@ -86,8 +86,8 @@ class TravelForm extends Component {
 
       initValues.orderNumber = detail.orderNumber
       initValues.dateCreated = detail.dateCreated
-      initValues.passenger = detail.passenger
-      initValues.email = detail.email
+      initValues.passengerName = detail.passengerName
+      initValues.passengerEmail = detail.passengerEmail
       initValues.time = detail.time
       initValues.company = detail.company
       initValues.bc = detail.bc
@@ -110,8 +110,8 @@ class TravelForm extends Component {
       dateCreated: Yup.date().required('Requerido'),
       time: Yup.string().required("Requerido"),
       company: Yup.string().required("Requerido"),
-      passenger: Yup.string().required("Requerido"),
-      email: Yup.string().required("Requerido"),
+      passengerName: Yup.string().required("Requerido"),
+      passengerEmail: Yup.string().required("Requerido"),
       originAddress: Yup.string().required("Requerido"),
       destinyAddress: Yup.string().required("Requerido"),
       amount: Yup.number().required("Requerido"),
@@ -282,11 +282,11 @@ class TravelForm extends Component {
                         type="text"
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
-                        value={props.values.passenger}
+                        value={props.values.passengerName}
                         className="form-control"
-                        name="passenger"
+                        name="passengerName"
                       />
-                      {props.errors.passenger && <div class="p-a-1 bg-warning" id="feedback">{props.errors.passenger}</div>}
+                      {props.errors.passengerName && <div class="p-a-1 bg-warning" id="feedback">{props.errors.passengerName}</div>}
                       <br />
                     </div>
 
@@ -296,11 +296,11 @@ class TravelForm extends Component {
                         type="text"
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
-                        value={props.values.email}
+                        value={props.values.passengerEmail}
                         className="form-control"
-                        name="email"
+                        name="passengerEmail"
                       />
-                      {props.errors.passenger && <div class="p-a-1 bg-warning" id="feedback">{props.errors.email}</div>}
+                      {props.errors.passengerEmail && <div class="p-a-1 bg-warning" id="feedback">{props.errors.passengerEmail}</div>}
                       <br />
                     </div>
 
@@ -315,7 +315,7 @@ class TravelForm extends Component {
                     <br />
                   </div>
                   <br />
-                  
+
                   <div class="row">
                     <div class="col-6 form-group">
 
