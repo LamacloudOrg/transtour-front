@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 
 const Footer= () =>(
 <div className="row margin-top:20px">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Formik, Field} from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
@@ -7,7 +7,6 @@ import { newTravel,travelEdition, getAllDrivers,getAllCompany } from "../redux/a
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.scss';
 import TotalAmount from '../components/TotalAmount';
-import { ThumbUpSharp } from '@material-ui/icons';
 
 class TravelForm extends Component {
 
@@ -70,7 +69,7 @@ class TravelForm extends Component {
     let initValues = {
       orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer,
       carDriverName:this.state.choferName, time: '', company: '',
-      bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
+      bc: '', passenger: '', email: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
       whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
     }
 
@@ -88,6 +87,7 @@ class TravelForm extends Component {
       initValues.orderNumber = detail.orderNumber
       initValues.dateCreated = detail.dateCreated
       initValues.passenger = detail.passenger
+      initValues.email = detail.email
       initValues.time = detail.time
       initValues.company = detail.company
       initValues.bc = detail.bc
@@ -111,6 +111,7 @@ class TravelForm extends Component {
       time: Yup.string().required("Requerido"),
       company: Yup.string().required("Requerido"),
       passenger: Yup.string().required("Requerido"),
+      email: Yup.string().required("Requerido"),
       originAddress: Yup.string().required("Requerido"),
       destinyAddress: Yup.string().required("Requerido"),
       amount: Yup.number().required("Requerido"),
@@ -118,7 +119,6 @@ class TravelForm extends Component {
       toll: Yup.number().required("Requerido"),
       parkingAmount: Yup.number().required("Requerido"),
       taxForReturn: Yup.string().required("Requerido"),
-      company: Yup.string().required("Requerido"),
     });
 
     return (
@@ -291,6 +291,20 @@ class TravelForm extends Component {
                     </div>
 
                     <div class="col-4 form-group">
+                      <label className="control-label">Email: </label>
+                      <input
+                        type="text"
+                        onChange={props.handleChange}
+                        onBlur={props.handleBlur}
+                        value={props.values.email}
+                        className="form-control"
+                        name="email"
+                      />
+                      {props.errors.passenger && <div class="p-a-1 bg-warning" id="feedback">{props.errors.email}</div>}
+                      <br />
+                    </div>
+
+                    <div class="col-3 form-group">
                       <label className="control-label">Numero Reserva: </label>
                       <input type="text" 
                       value={props.values.reserveNumber}
@@ -300,7 +314,8 @@ class TravelForm extends Component {
                     </div>
                     <br />
                   </div>
-
+                  <br />
+                  
                   <div class="row">
                     <div class="col-6 form-group">
 

@@ -1,7 +1,4 @@
-import React, { Component } from 'react';
 import nostros from '../images/nosotros.jpg'
-
-const height="150px"
 
 const Home= () =>(
     <div className="row">
