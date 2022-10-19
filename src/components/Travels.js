@@ -95,7 +95,7 @@ class  Travels extends Component {
                         <tr key={element.orderNumber}>
                         <th scope="row"></th>
                         <td>{element.orderNumber}</td>
-                        <td>{this.toUpperCase(element.passenger)}</td>
+                        <td>{this.toUpperCase(element.passengerName)}</td>
                         <td>{element.dateCreated}</td>
                         <td>{element.time}</td>
                         <td><a onClick={()=>this.loadInfo(element)}><img 
