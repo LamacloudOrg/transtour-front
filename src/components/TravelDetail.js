@@ -77,7 +77,7 @@ class  TravelDetail extends Component {
                 <div className="jumbotron">
                 <form> 
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled value={this.concat("Order Number", detail.orderNumber )} />
-                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Passenger", this.toUpperCase(detail.passenger) )} />
+                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Passenger", this.toUpperCase(detail.passengerName) )} />
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Date", detail.dateCreated + " " +detail.time  )} />
        
 
