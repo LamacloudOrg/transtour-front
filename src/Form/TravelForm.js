@@ -44,7 +44,7 @@ class TravelForm extends Component {
     const dni = e.target.value
     const driver_ =  this.props.drivers.filter((driver) => driver.dni.toString() === dni)[0]
     //console.log("car obtenido",car);
-    inputCar.value = driver_.car.id.toString()
+    inputCar.value = driver_.car.patent.toString()
    // e.target.value = car.dni.toString()
     this.setState({
       error: this.state.error,
@@ -82,7 +82,7 @@ class TravelForm extends Component {
       console.log(driver_)
       initValues.isEdition = true
       initValues.carDriver =detail.carDriver
-      if (driver_ !==undefined) initValues.car = driver_.car.id
+      if (driver_ !==undefined) initValues.car = driver_.car.patent
 
       initValues.orderNumber = detail.orderNumber
       initValues.dateCreated = detail.dateCreated
