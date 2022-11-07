@@ -40,19 +40,7 @@ class TravelForm extends Component {
   }
 
   loadCar(e) {
-    const inputCar = document.getElementById("car")
-    const dni = e.target.value
-    const driver_ =  this.props.drivers.filter((driver) => driver.dni.toString() === dni)[0]
-    //console.log("car obtenido",car);
-    inputCar.value = driver_.car.patent.toString()
-   // e.target.value = car.dni.toString()
-    this.setState({
-      error: this.state.error,
-      chofer: driver_.dni.toString(),
-      choferName:driver_.fullName,
-      patent: inputCar.value.toString(),
-      isLoading: this.state.isLoading,
-    })
+
   }
 
   resetValues(values){
@@ -77,12 +65,12 @@ class TravelForm extends Component {
 
     if (this.props.location.state !== undefined && !this.state.isLoading && this.props.drivers !== undefined){
       const {detail} = this.props.location.state
-      console.log("mis drivers ", this.props.drivers)
-      const driver_ = this.props.drivers.filter((driver) => driver.dni.toString() === detail.carDriver)[0]
-      console.log(driver_)
-      initValues.isEdition = true
-      initValues.carDriver =detail.carDriver
-      if (driver_ !==undefined) initValues.car = driver_.car.patent
+      //console.log("mis drivers ", this.props.drivers)
+      //const driver_ = this.props.drivers.filter((driver) => driver.dni.toString() === detail.carDriver)[0]
+      //console.log(driver_)
+      //initValues.isEdition = true
+     // initValues.carDriver =detail.carDriver
+     // if (driver_ !==undefined) initValues.car = driver_.car.patent
 
       initValues.orderNumber = detail.orderNumber
       initValues.dateCreated = detail.dateCreated
@@ -137,9 +125,11 @@ class TravelForm extends Component {
             onSubmit={async (values, actions) => {
               console.log(values);
               try {
-                values.car = this.state.patent
-                values.carDriver = this.state.chofer
-                values.carDriverName = this.state.choferName
+                const driver_ = this.props.drivers.filter((driver) => driver.dni.toString() === values.carDriver)[0]
+                console.log("seteo driver" , driver_);
+                values.carDriverName = driver_.fullName;
+                values.car = values.patent;
+                values.carDriver = driver_.dni
                 console.log("antes de llamar" , values);
                 initValues.isEdition === true ? this.props.update(values)  : this.props.create(values)
                 const { history } = this.props;
@@ -215,21 +205,25 @@ class TravelForm extends Component {
                     <div class="col-4 form-group">
 
                       <label className="control-label col-sm-2">Vehiculo: </label>
-                      <input type="text"
-                        value={this.state.patent !== '' ? this.state.patent : props.values.car}
+                      <input
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
+                        value={props.values.patent}
+                        label="patent"
+                        name="patent"
+                        type="patent"
                         className="form-control"
-                        id="car" name="car" />
-                      {props.errors.car && <div class="p-a-1 bg-warning" id="feedback">{props.errors.car}</div>}
-                      <br />
+                      />
+                       {props.errors.patent && <div class="p-a-1 bg-warning" id="feedback">{props.errors.patent}</div>}
+
+            
                     </div>
 
                     <div class="col-4 form-group">
                       <label className="control-label col-sm-2">Chofer: </label>
                       <select
+                        //onChange={(e) => this.loadCar(e)}
                         onChange={props.handleChange}
-                        onChange={(e) => this.loadCar(e)}
                         onBlur={props.handleBlur}
                         value={this.state.chofer ? this.state.chofer :props.values.carDriver}
                         className="form-control"

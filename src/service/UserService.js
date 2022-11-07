@@ -12,6 +12,7 @@ class UserService{
             console.log("obteniendpo drivers")
             const response = await Axios.get(this.endpoint+"/find/drivers")
             const result =  await response.data;
+            console.log(result);
             return result   
            } catch (error) {
                throw new Error(error)
