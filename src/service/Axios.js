@@ -34,7 +34,7 @@ const agent = new https.Agent({
   });
 
 const instance = axios.create({
-    baseURL: 'https://transtour.com.ar:8080/api',
+    baseURL: process.env.REACT_APP_BACKEND_URL+'/api',
     timeout: 20000,
     httpsAgent:agent,
     exposedHeaders: ['Content-Disposition'],
