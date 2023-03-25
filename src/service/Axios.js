@@ -35,7 +35,8 @@ const agent = new https.Agent({
 
 const instance = axios.create({
     // baseURL: 'https://209.126.85.7:8080/api',
-    baseURL: 'https://localhost:8080',
+    // baseURL: process.env.API,
+    baseURL: 'http://45.90.109.119:8080',
     timeout: 20000,
     httpsAgent:agent,
     exposedHeaders: ['Content-Disposition'],
