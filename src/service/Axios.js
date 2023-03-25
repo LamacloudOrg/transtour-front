@@ -34,8 +34,8 @@ const agent = new https.Agent({
   });
 
 const instance = axios.create({
-    baseURL: 'https://209.126.85.7:8080/api',
-    
+    // baseURL: 'https://209.126.85.7:8080/api',
+    baseURL: 'https://localhost:8080',
     timeout: 20000,
     httpsAgent:agent,
     exposedHeaders: ['Content-Disposition'],
@@ -48,7 +48,7 @@ const instance = axios.create({
 
 
   instance.interceptors.request.use(request => {
-    if (request.url === "/service-user/v1/user/oauth/token") return request;
+    if (request.url === "/api/v1/oauth/authenticate") return request;
     if (request.headers["Authorization"] === undefined){
       const token = localStorage.getItem("token") || null;
       request.headers["Authorization"]= 'Bearer '+token 

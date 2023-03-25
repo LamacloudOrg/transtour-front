@@ -2,12 +2,12 @@ import Axios from './Axios';
 
 class Authetication {
     constructor() {
-        this.endpoint = "/service-user/v1/user";
+        this.endpoint = "/api/v1";
     }
 
      autetincate = async (form)=>{
        try {
-        const response = await Axios.post(this.endpoint+"/oauth/token",form)
+        const response = await Axios.post(this.endpoint+"/oauth/authenticate",form)
         const result =  await response.data;
         return result   
        } catch (error) {
