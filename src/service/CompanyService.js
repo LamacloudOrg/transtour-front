@@ -10,9 +10,12 @@ class CompanyService{
   
         try {
             console.log("obteniendpo compañias")
-            const response = await Axios.get(this.endpoint)
-            const result =  await response.data;
-            return result   
+            //const response = await Axios.get(this.endpoint)
+            //const result =  await response.data;
+
+            //return result
+            
+            return [{id:1,fullName:"tarjeta naranja",nickName:"naranja"}]
            } catch (error) {
                throw new Error(error)
            }  

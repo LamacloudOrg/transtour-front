@@ -45,12 +45,16 @@ class TravelForm extends Component {
     const dni = e.target.value
     const driver_ =  this.props.drivers.filter((driver) => driver.dni.toString() === dni)[0]
     //console.log("car obtenido",car);
-    inputCar.value = driver_.car.id.toString()
+    if(driver_.cars.length > 0){
+      inputCar.value = driver_.cars[0].patent.toString()
+    }else{
+      inputCar.value="";
+    }
    // e.target.value = car.dni.toString()
     this.setState({
       error: this.state.error,
       chofer: driver_.dni.toString(),
-      choferName:driver_.fullName,
+      choferName:driver_.name,
       patent: inputCar.value.toString(),
       isLoading: this.state.isLoading,
     })
@@ -109,7 +113,7 @@ class TravelForm extends Component {
      // orderNumber: Yup.string().required("Requerido"),
       dateCreated: Yup.date().required('Requerido'),
       time: Yup.string().required("Requerido"),
-      company: Yup.string().required("Requerido"),
+     // company: Yup.string().required("Requerido"),
       passenger: Yup.string().required("Requerido"),
       originAddress: Yup.string().required("Requerido"),
       destinyAddress: Yup.string().required("Requerido"),
@@ -118,7 +122,7 @@ class TravelForm extends Component {
       toll: Yup.number().required("Requerido"),
       parkingAmount: Yup.number().required("Requerido"),
       taxForReturn: Yup.string().required("Requerido"),
-      company: Yup.string().required("Requerido"),
+      //company: Yup.string().required("Requerido"),
     });
 
     return (
@@ -237,7 +241,7 @@ class TravelForm extends Component {
                       >
 
                         {this.props.drivers.length > 0 && this.props.drivers.map((driver) => (
-                          <option type="text" value={driver.dni}>{driver.fullName}</option>
+                          <option type="text" value={driver.dni}>{driver.name}</option>
                         ))
                         }
                       </select>
@@ -422,8 +426,10 @@ class TravelForm extends Component {
 
 
 const mapStateToProps = (state) => {
+  console.log(state);
   const { drivers } = state.userReducer
   const { companies } = state.companyReducer
+
   return {
     drivers: drivers,
     companies:companies

@@ -44,8 +44,8 @@ class Login extends Component {
   startSession = async() =>{
     const { history } = this.props;
     try{
-     const token = await AuthenticationService.autetincate(this.state.form)
-     localStorage.setItem("token",token);
+     const data = await AuthenticationService.autetincate(this.state.form)
+     localStorage.setItem("token",data.token);
      history.push("/home")
     }catch(Error){
       console.log(Error)
