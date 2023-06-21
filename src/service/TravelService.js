@@ -74,15 +74,15 @@ class TravelService {
     getAll = async (page)=>{
 
         const page_ = page || 0;
-        const params ={ params: { page: page_,size:100} }
+        const params ={ page: page_,size:100} 
 
         try {
  
          console.log("get all travels")
              
-         const response = await Axios.get(this.endpoint+"/list",params)
+         const response = await Axios.get(this.endpoint+"/travel",params)
          const result =  await response.data;
-         return result   
+         return result !=undefined ? result.data.content:[]; 
         } catch (error) {
             console.log("obtener travels",error);
             throw new Error(error)

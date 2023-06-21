@@ -65,11 +65,11 @@ class  Travels extends Component {
 
             <>
             {
-                this.state.isLoading &&
+                this.props.travels.length==0 &&
                 <h1>loading</h1>
             }
             {
-                !this.state.isLoading &&
+                this.props.travels.length>0 &&
                 <div className="containter">    
                 <div className="row align-items-center">
                 <div className="col-8 mx-auto">
@@ -90,14 +90,14 @@ class  Travels extends Component {
                 <tbody>
                 
                   
-                    { this.props.travels && this.props.travels.map(element =>
+                    { this.props.travels &&  this.props.travels.map(element =>
                     (
                         <tr key={element.orderNumber}>
                         <th scope="row"></th>
                         <td>{element.orderNumber}</td>
-                        <td>{this.toUpperCase(element.passenger)}</td>
+                        <td>{this.toUpperCase(element.payload.passengerName)}</td>
                         <td>{element.dateCreated}</td>
-                        <td>{element.time}</td>
+                        <td>{element.payload.time}</td>
                         <td><a onClick={()=>this.loadInfo(element)}><img 
                         src={lupa} alt="lupa"
                         style={{
@@ -184,7 +184,7 @@ const mapStateToProps = (state) => {
     const { travels,isLoading} = state.travelReducer
     console.log("travels",travels)
 	return {
-		travels: travels.content,
+		travels: travels,
         loading: isLoading
 	};
 }
