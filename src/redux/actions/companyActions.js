@@ -4,7 +4,7 @@ const loadCopany= (companies) => ({ type: actionTypes.LOAD_COMPANY ,payload:comp
 
 
 export const getAllCompany = () => {
-    return  function (dispatch) {
+    return function (dispatch) {
         return CompanyService.getAllCompany().then(companies => {
             dispatch(loadCopany(companies));
         }).catch((e)=> console.log("no se pudo cargar"))

@@ -3,7 +3,7 @@ import { Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { newTravel,travelEdition, getAllDrivers,getAllCompany } from "../redux/actions";
+import { newTravel,travelEdition, getAllDrivers, getAllCompany } from "../redux/actions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Travel.scss';
 import TotalAmount from '../components/TotalAmount';
@@ -73,7 +73,7 @@ class TravelForm extends Component {
   
     let initValues = {
       orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer,
-      carDriverName:this.state.choferName, time: '', company: '',
+      carDriverName:this.state.choferName, time: '', company:this.state.company,
       bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
       whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
     }
