@@ -15,7 +15,8 @@ class TravelForm extends Component {
     super()
     this.loadCar = this.loadCar.bind(this);
     this.resetValues = this.resetValues.bind(this);    
-    
+    this.contateDniAndNameDriver = this.contateDniAndNameDriver.bind(this)
+
     this.state = {
       error: '',
       chofer: '',
@@ -26,6 +27,11 @@ class TravelForm extends Component {
     }
   }
 
+  contateDniAndNameDriver(dni, name) {
+    console.log("que tiene la func: " + dni + name);
+    // this.carDriverName = name;
+    return dni + ':' + name
+  }
 
   componentWillMount() {
     this.props.loadDrivers();
@@ -157,6 +163,15 @@ class TravelForm extends Component {
                 values.carDriver = this.state.chofer
                 values.carDriverName = this.state.choferName
                 */
+               // console.log("Que tiene values.cardriver: " + values.carDriver);
+               // console.log("Que tiene this.props.cardriver: " + this.props.carDriver);
+               // values.carDriver= values.carDriver.toString().split(":")[0];
+               // values.carDriverName= values.carDriver.toString().split(":")[1];
+                const partes = values.carDriver.split(":");
+                values.carDriver = partes[0]; 
+                values.carDriverName = partes[1];
+
+
                 console.log("antes de llamar" , values);
                 initValues.isEdition === true ? this.props.update(values)  : this.props.create(values)
                 const { history } = this.props;
@@ -261,7 +276,7 @@ class TravelForm extends Component {
                       >
 
                         {this.props.drivers.length > 0 && this.props.drivers.map((driver) => (
-                          <option type="text" value={driver.dni}>{driver.name}</option>
+                          <option type="text" value={this.contateDniAndNameDriver(driver.dni, driver.name)}>{driver.name}</option>
                         ))
                         }
                       </select>
