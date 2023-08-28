@@ -32,8 +32,11 @@ class  TravelDetail extends Component {
         })
     }
 
-    toUpperCase=(name)=>{
-        return name.toUpperCase()
+    toUpperCase=(payload, propsName)=>{
+        if(payload[`${propsName}` != null]){
+            return payload[`${propsName}`].toUpperCase()
+        }
+        return "";
     }
 
     concat=(val1,val2)=>{
@@ -77,15 +80,15 @@ class  TravelDetail extends Component {
                 <div className="jumbotron">
                 <form> 
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled value={this.concat("Order Number", detail.orderNumber )} />
-                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Passenger", this.toUpperCase(detail.passenger) )} />
-                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Date", detail.dateCreated + " " +detail.time  )} />
+                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("passengerName", this.toUpperCase(detail.payload, 'passengerName') )} />
+                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Date", detail.dateCreated + " " +detail.payload.time  )} />
        
 
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Driver",detail.carDriverName + "(" + detail.carDriver +")" )} />
-                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("car", this.toUpperCase(detail.car) )} />
+                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("car", this.toUpperCase(detail.payload, 'car') )} />
                     <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Company", detail.company )} />
-                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Origin", detail.originAddress )} />
-                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Destiny", detail.destinyAddress )} />
+                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Origin", detail.payload.originAddress )} />
+                    <input className="col-12 text-center bg-gradient-primary text-dark" type="text" disabled  value={this.concat("Destiny", detail.payload.destinyAddress )} />
                
                     
                     <input className="col-12 text-center bg-gradient-primary text-warning" type="text" disabled  value={this.concat("Status", this.state.status )} />

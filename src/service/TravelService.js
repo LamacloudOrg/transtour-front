@@ -38,7 +38,7 @@ class TravelService {
         try {
  
          console.log("aprbacion del viaje",travel)
-         const response = await Axios.post(this.endpoint+"/travel/"+travel+"/aprove",travel)
+         const response = await Axios.patch(this.endpoint+"/travel/"+travel+"/approve")
          const result =  await response.data;
          return result   
         } catch (error) {

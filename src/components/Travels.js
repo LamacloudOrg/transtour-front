@@ -30,8 +30,12 @@ class  Travels extends Component {
         })
    }
 
-   toUpperCase=(name)=>{
-    return name.toUpperCase()
+   toUpperCase=(payload)=>{
+    console.log("que tiene: ", payload);  
+    if (payload.passengerName != null) {
+        return payload.passengerName.toUpperCase()    
+    }      
+    return "";
    }
 
    isAproved=(status)=>{
@@ -60,7 +64,7 @@ class  Travels extends Component {
     
 
     render() {
-        
+
         return(
 
             <>
@@ -79,7 +83,7 @@ class  Travels extends Component {
                     <tr>
                     <th scope="col"></th>
                     <th scope="col">orderNumber</th>
-                    <th scope="col">Passenger</th>
+                    <th scope="col">passengerName</th>
                     <th scope="col">Date</th>
                     <th scope="col" >Hour</th>
                     <th scope="col">See</th>
@@ -92,10 +96,11 @@ class  Travels extends Component {
                   
                     { this.props.travels &&  this.props.travels.map(element =>
                     (
+
                         <tr key={element.orderNumber}>
                         <th scope="row"></th>
                         <td>{element.orderNumber}</td>
-                        <td>{this.toUpperCase(element.payload.passengerName)}</td>
+                        <td>{this.toUpperCase(element.payload)}</td>
                         <td>{element.dateCreated}</td>
                         <td>{element.payload.time}</td>
                         <td><a onClick={()=>this.loadInfo(element)}><img 

@@ -46,7 +46,10 @@ class TravelForm extends Component {
     const driver_ =  this.props.drivers.filter((driver) => driver.dni.toString() === dni)[0]
     //console.log("car obtenido",car);
     if(driver_.cars.length > 0){
-      inputCar.value = driver_.cars[0].patent.toString()
+      // inputCar.value = driver_.cars[0].patent.toString()
+      inputCar.value = driver_.cars.map(car => car.patent.toString()).join(', ');
+      // inputCar.value = patents.map(patent => patent.toString()).join(', ');
+
     }else{
       inputCar.value="";
     }
@@ -54,7 +57,7 @@ class TravelForm extends Component {
     this.setState({
       error: this.state.error,
       chofer: driver_.dni.toString(),
-      choferName:driver_.name,
+      choferName:driver_.fullName,
       patent: inputCar.value.toString(),
       isLoading: this.state.isLoading,
     })
@@ -71,13 +74,20 @@ class TravelForm extends Component {
 
   render() {
   
+    /*
     let initValues = {
       orderNumber: '', dateCreated: '', car: this.state.patent, carDriver: this.state.chofer,
       carDriverName:this.state.choferName, time: '', company:this.state.company,
       bc: '', passenger: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
       whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
     }
-
+    */
+    let initValues = {
+      orderNumber: '', dateCreated: '', car: "", carDriver: "",
+      carDriverName:"", time: '', company:"",
+      bc: '', passengerName: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
+      whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
+    }
     
 
     if (this.props.location.state !== undefined && !this.state.isLoading && this.props.drivers !== undefined){
@@ -91,19 +101,19 @@ class TravelForm extends Component {
 
       initValues.orderNumber = detail.orderNumber
       initValues.dateCreated = detail.dateCreated
-      initValues.passenger = detail.passenger
+      initValues.passengerName = detail.payload.passengerName
       initValues.time = detail.time
       initValues.company = detail.company
-      initValues.bc = detail.bc
-      initValues.reserveNumber = detail.reserveNumber
-      initValues.observation = detail.observation
-      initValues.originAddress = detail.originAddress
-      initValues.destinyAddress = detail.destinyAddress
-      initValues.amount = detail.amount
-      initValues.toll = detail.toll
-      initValues.taxForReturn = detail.taxForReturn
-      initValues.parkingAmount = detail.parkingAmount
-      initValues.whitingTime = detail.whitingTime
+      initValues.bc = detail.payload.bc
+      initValues.reserveNumber = detail.payload.reserveNumber
+      initValues.observation = detail.payload.observation
+      initValues.originAddress = detail.payload.originAddress
+      initValues.destinyAddress = detail.payload.destinyAddress
+      initValues.amount = detail.payload.amount
+      initValues.toll = detail.payload.toll
+      initValues.taxForReturn = detail.payload.taxForReturn
+      initValues.parkingAmount = detail.payload.parkingAmount
+      initValues.whitingTime = detail.payload.whitingTime
       initValues.totalAmount = parseFloat(detail.amount) + parseFloat(detail.toll) +  parseFloat(detail.taxForReturn) +  parseFloat(detail.parkingAmount) +  parseFloat(detail.whitingTime)  
 
     }
@@ -114,7 +124,7 @@ class TravelForm extends Component {
       dateCreated: Yup.date().required('Requerido'),
       time: Yup.string().required("Requerido"),
      // company: Yup.string().required("Requerido"),
-      passenger: Yup.string().required("Requerido"),
+      passengerName: Yup.string().required("Requerido"),
       originAddress: Yup.string().required("Requerido"),
       destinyAddress: Yup.string().required("Requerido"),
       amount: Yup.number().required("Requerido"),
@@ -141,19 +151,26 @@ class TravelForm extends Component {
             onSubmit={async (values, actions) => {
               console.log(values);
               try {
+                /*
                 values.car = this.state.patent
                 values.carDriver = this.state.chofer
                 values.carDriverName = this.state.choferName
+                */
                 console.log("antes de llamar" , values);
                 initValues.isEdition === true ? this.props.update(values)  : this.props.create(values)
                 const { history } = this.props;
                 history.push("/travels");
               } catch (error) {
+                /*
                 this.setState({
                   patent: this.state.patent,
                   chofer: this.state.chofer,
                   choferName:this.state.choferName,
                   isLoading: this.state.isLoading,
+                  error: 'No se pudo crear el viaje'
+                })
+                */
+                this.setState({
                   error: 'No se pudo crear el viaje'
                 })
               }
@@ -220,7 +237,8 @@ class TravelForm extends Component {
 
                       <label className="control-label col-sm-2">Vehiculo: </label>
                       <input type="text"
-                        value={this.state.patent !== '' ? this.state.patent : props.values.car}
+                        // value={this.state.patent !== '' ? this.state.patent : props.values.car}
+                        value={props.values.car}
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
                         className="form-control"
@@ -233,9 +251,10 @@ class TravelForm extends Component {
                       <label className="control-label col-sm-2">Chofer: </label>
                       <select
                         onChange={props.handleChange}
-                        onChange={(e) => this.loadCar(e)}
+                        // onChange={(e) => this.loadCar(e)}
                         onBlur={props.handleBlur}
-                        value={this.state.chofer ? this.state.chofer :props.values.carDriver}
+                        // value={this.state.chofer ? this.state.chofer :props.values.carDriver}
+                        value={props.values.carDriver}
                         className="form-control"
                         name="carDriver"
                       >
@@ -286,11 +305,11 @@ class TravelForm extends Component {
                         type="text"
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
-                        value={props.values.passenger}
+                        value={props.values.passengerName}
                         className="form-control"
-                        name="passenger"
+                        name="passengerName"
                       />
-                      {props.errors.passenger && <div class="p-a-1 bg-warning" id="feedback">{props.errors.passenger}</div>}
+                      {props.errors.passengerName && <div class="p-a-1 bg-warning" id="feedback">{props.errors.passengerName}</div>}
                       <br />
                     </div>
 
