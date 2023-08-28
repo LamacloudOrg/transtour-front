@@ -85,7 +85,7 @@ class TravelForm extends Component {
     let initValues = {
       orderNumber: '', dateCreated: '', car: "", carDriver: "",
       carDriverName:"", time: '', company:"",
-      bc: '', passengerName: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
+      bc: '', passengerName: '', passengerEmail: '', reserveNumber: '', originAddress: '', destinyAddress: '', observation: '', amount: '',
       whitingTime: 0.0, toll: 0.0, parkingAmount: 0.0, taxForReturn: 0.0, totalAmount: 0.0, isEdition:false
     }
     
@@ -106,6 +106,7 @@ class TravelForm extends Component {
       initValues.company = detail.company
       initValues.bc = detail.payload.bc
       initValues.reserveNumber = detail.payload.reserveNumber
+      initValues.passengerEmail = detail.payload.passengerEmail
       initValues.observation = detail.payload.observation
       initValues.originAddress = detail.payload.originAddress
       initValues.destinyAddress = detail.payload.destinyAddress
@@ -290,16 +291,14 @@ class TravelForm extends Component {
 
 
                   <div class="row">
-                    <div class="col-4 form-group">
-
-
+                    <div class="col-3 form-group">
                       <label className="control-label">BC: </label>
                       <input type="text" value={props.values.bc} onChange={props.handleChange} className="form-control" name="bc" />
                       {props.errors.bc && <div class="p-a-1 bg-warning" id="feedback">{props.errors.bc}</div>}
                       <br />
                     </div>
 
-                    <div class="col-4 form-group">
+                    <div class="col-3 form-group">
                       <label className="control-label">Pasajero/s: </label>
                       <input
                         type="text"
@@ -312,8 +311,18 @@ class TravelForm extends Component {
                       {props.errors.passengerName && <div class="p-a-1 bg-warning" id="feedback">{props.errors.passengerName}</div>}
                       <br />
                     </div>
+                    
+                    <div class="col-3 form-group">
+                      <label className="control-label">Email: </label>
+                      <input type="text" 
+                      value={props.values.passengerEmail}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                      className="form-control" name="passengerEmail" />
+                    </div>
+                    <br />
 
-                    <div class="col-4 form-group">
+                    <div class="col-3 form-group">
                       <label className="control-label">Numero Reserva: </label>
                       <input type="text" 
                       value={props.values.reserveNumber}
